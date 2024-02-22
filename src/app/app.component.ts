@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FirebaseApp } from 'firebase/app';
+import { FirebaseService } from './firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'WhatToWatch';
+
+  constructor(private firebaseService: FirebaseService) {}
 }
