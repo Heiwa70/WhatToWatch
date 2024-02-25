@@ -20,4 +20,23 @@ describe('FirebaseService', () => {
   it('should have analytics initialized', () => {
     expect(service.getAnalytics()).toBeTruthy();
   });
+
+  it('should have db initialized', () => {
+    expect(service.getDb()).toBeTruthy();
+  });
+
+  it('should have document set', async () => {
+    const data = {
+      first : "test",
+      last : "test",
+      born : 1999};
+
+   try {
+     await service.addDocument("users", "test",data);
+     expect(true).toBeTruthy();
+   }catch(e){
+      console.error(e);
+      expect(false).toBeTruthy();
+    }
+  });
 });
