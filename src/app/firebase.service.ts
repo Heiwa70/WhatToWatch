@@ -42,6 +42,12 @@ export class FirebaseService {
     return this.db;
   }
 
+  /**
+   * Ajoute un document à une collection spécifiée dans la base de données Firestore.
+   * @param collection - Le nom de la collection dans laquelle ajouter le document.
+   * @param document - Le nom du document à ajouter.
+   * @param data - Les données à enregistrer dans le document.
+   */
   async addDocument(collection : string, document : string, data : any) {
     await setDoc(doc(this.db, collection, document), data);
   }

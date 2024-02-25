@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="./header.component.css" />
 <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
     <span class="font-semibold text-xl tracking-tight">Votre site</span>
@@ -19,7 +20,7 @@
   </div>
   <div
     class="w-full block flex-grow lg:flex lg:items-center lg:w-auto"
-    [ngClass]="{ hidden: !isMenuOpen, block: isMenuOpen }"
+    [@openClose]="isMenuOpen ? 'open' : 'closed'"
   >
     <div class="text-sm lg:flex-grow">
       <a
