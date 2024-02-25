@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { FirebaseService } from 'src/app/firebase.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
+    this.testGetDocument();
   }
 
   isMenuOpen = false;
@@ -33,6 +35,12 @@ export class HeaderComponent implements OnInit {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-  
+
+  constructor(private firebaseService: FirebaseService) { }
+
+  async testGetDocument() {
+    const result = await this.firebaseService.getDocument('users', 'test');
+    console.log(result);
+  }
 
 }

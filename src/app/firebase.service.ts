@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc } from "firebase/firestore"; 
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +50,24 @@ export class FirebaseService {
    */
   async addDocument(collection : string, document : string, data : any) {
     await setDoc(doc(this.db, collection, document), data);
+  }
+
+  /**
+   * Récupère un document d'une collection spécifiée dans Firestore.
+   * @param collection - Le nom de la collection.
+   * @param document - L'ID du document à récupérer.
+   * @returns Les données du document récupéré, ou null si le document n'existe pas.
+   */
+  async getDocument(collection : string, document : string) {
+    const docRef = doc(this.db, collection, document);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("No such document!");
+      return null;
+    }
   }
 
 }

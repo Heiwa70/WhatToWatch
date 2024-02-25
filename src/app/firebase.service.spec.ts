@@ -27,16 +27,22 @@ describe('FirebaseService', () => {
 
   it('should have document set', async () => {
     const data = {
-      first : "test",
-      last : "test",
-      born : 1999};
+      first: 'test',
+      last: 'test',
+      born: 1999,
+    };
 
-   try {
-     await service.addDocument("users", "test",data);
-     expect(true).toBeTruthy();
-   }catch(e){
+    try {
+      await service.addDocument('users', 'test', data);
+      expect(true).toBeTruthy();
+    } catch (e) {
       console.error(e);
       expect(false).toBeTruthy();
     }
+  });
+
+  it('should have document retrieved', async () => {
+    const result = await service.getDocument('users', 'test');
+    expect(result).toBeTruthy();
   });
 });
