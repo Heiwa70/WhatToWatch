@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore"; 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc, getDoc, deleteDoc, updateDoc, deleteField } from "firebase/firestore"; 
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 export class FirebaseService {
   private app: any;
   private analytics: any;
+  private auth: any;
   private db: any;
 
   constructor() {
@@ -26,6 +27,8 @@ export class FirebaseService {
 
     this.app = initializeApp(firebaseConfig);
     this.analytics = getAnalytics(this.app);
+
+    this.auth = getAuth(this.app);
 
     this.db = getFirestore(this.app);
   }
@@ -69,5 +72,40 @@ export class FirebaseService {
       return null;
     }
   }
+
+  /**
+    * Supprime un document d'une collection dans la base de données Firestore.
+    * @param collection - Le nom de la collection.
+    * @param document - L'ID du document à supprimer.
+    */
+  async deleteDocument(collection : string, document : string) {
+    await deleteDoc(doc(this.db, collection, document));
+  }
+
+  async deleteChamp(collection : string, document : string, champ : string) {
+    const docRef = doc(this.db, collection, document);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      await updateDoc(docRef, {
+        champ: deleteField()
+      });
+    } else {
+      console.log("No such document!");
+    }
+  }
+
+  async createUser(email : string, password : string) {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const user = userCredential.user
+      console.log(user);
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }      
+  }
+
 
 }

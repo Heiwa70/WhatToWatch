@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { FirebaseService } from 'src/app/firebase.service';
+import { FirebaseService } from 'src/app/controllers/firebase.service';
 
 
 @Component({
