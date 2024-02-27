@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FirebaseApp } from 'firebase/app';
-import { FirebaseService } from './controllers/firebase.service';
+import { FirebaseService } from '../services/firebase.service';
 
 @Component({
   selector: 'app-root',
