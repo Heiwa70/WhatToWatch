@@ -95,6 +95,13 @@ export class FirebaseService {
     }
   }
 
+  /**
+   * Crée un nouvel utilisateur avec l'email et le mot de passe spécifiés.
+   * 
+   * @param email - L'email de l'utilisateur.
+   * @param password - Le mot de passe de l'utilisateur.
+   * @returns Un booléen indiquant si la création de l'utilisateur a réussi.
+   */
   async createUser(email : string, password : string) {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
