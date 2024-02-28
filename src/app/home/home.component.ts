@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
+import { TmdbService } from 'src/services/tmdb.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,14 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private firbaseSrv : FirebaseService) { }
+  constructor(private firbaseSrv : FirebaseService, private api: TmdbService) { }
 
   ngOnInit(): void {
+    this.api.getPopularMovies().subscribe(
+      data => {
+        console.log(data[0].adult);
+      }
+    );
   }
 
 }

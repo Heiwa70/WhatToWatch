@@ -1,34 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FirebaseService } from 'src/services/firebase.service';
+import { TmdbService } from 'src/services/tmdb.service';
+
 
 
 @Component({
 
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
-  animations: [
-    trigger('openClose', [
-      state('open', style({
-        opacity: 1,
-        visibility: 'visible'
-      })),
-      state('closed', style({
-        opacity: 0,
-        visibility: 'hidden'
-      })),
-      transition('open <=> closed', [
-        animate('0.3s')
-      ]),
-    ]),
-  ],
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
-  ngOnInit(): void {
-    this.testGetDocument();
-  }
+  ngOnInit(): void {}
 
   isMenuOpen = false;
 
@@ -36,11 +21,7 @@ export class HeaderComponent implements OnInit {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService, private api: TmdbService) { }
 
-  async testGetDocument() {
-    const result = await this.firebaseService.getDocument('users', 'test');
-    console.log(result);
-  }
 
 }
