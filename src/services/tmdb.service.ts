@@ -10,6 +10,7 @@ import { Genre } from 'src/models/Genre';
 })
 export class TmdbService {
   private url : string;
+  private country: string;
   private headers = new HttpHeaders({
     'Accept': 'application/json',
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNzEyYmY2YTBiZDg3OWRjMjc2ZTA0MTlmNmQxMzU0NSIsInN1YiI6IjY1ZDY0MDI1ZGIxNTRmMDE2NGEwOGMxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sEpl3yNo5-HSpmuN8mA05LTHSUkMaf-7TXMQlW94LZ4'
@@ -17,6 +18,7 @@ export class TmdbService {
 
   constructor(private http: HttpClient) {
     this.url = '';
+    this.country = 'FR';
    }
 
    getUserRegion(): Observable<string> {
@@ -51,8 +53,9 @@ export class TmdbService {
   }
 
   getUpcomingMovies(): Observable<Movie[]> {
-    
-    this.url = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&region='+this.getUserRegion().subscribe(data => {return data});
+
+    this.url = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&region='+this.country;
+    console.log(this.url);
     return this.http.get<{results: Movie[]}>(this.url, { headers: this.headers })
     .pipe(
       map(response => response.results)

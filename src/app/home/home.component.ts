@@ -17,6 +17,12 @@ export class HomeComponent implements OnInit {
         console.log(data[0].adult);
       }
     );
+
+    this.api.getUpcomingMovies().subscribe(
+      data => {
+        console.log(data);
+      }
+    );
   }
 
 }
