@@ -19,6 +19,13 @@ export class TmdbService {
     this.url = '';
    }
 
+   getUserRegion(): Observable<string> {
+    return this.http.get<{country: string}>('https://ipapi.co/json/')
+      .pipe(
+        map(response => response.country)
+      );
+  }
+
   getPopularMovies(): Observable<Movie[]> {
     this.url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
     return this.http.get<{results: Movie[]}>(this.url, { headers: this.headers })
@@ -32,6 +39,23 @@ export class TmdbService {
     return this.http.get<{genres: Genre[]}>(this.url, { headers: this.headers })
     .pipe(
       map(response => response.genres)
+    );
+  }
+
+  getTopRatingMovies(): Observable<Movie[]> {
+    this.url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
+    return this.http.get<{results: Movie[]}>(this.url, { headers: this.headers })
+    .pipe(
+      map(response => response.results)
+    );
+  }
+
+  getUpcomingMovies(): Observable<Movie[]> {
+    
+    this.url = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&region='+this.getUserRegion().subscribe(data => {return data});
+    return this.http.get<{results: Movie[]}>(this.url, { headers: this.headers })
+    .pipe(
+      map(response => response.results)
     );
   }
 }
