@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movie } from 'src/models/Movies';
 import { map } from 'rxjs/operators';
-import { Genre } from 'src/models/Genre';
+import { MoviesGenre } from 'src/models/MoviesGenre';
+import { MoviesTrailer } from 'src/models/MoviesTrailer';
+import { MovieProviders } from 'src/models/MoviesProviders';
 
 @Injectable({
   providedIn: 'root'
@@ -36,9 +38,9 @@ export class TmdbService {
     );
   }
   
-  getGenreMovies(): Observable<Genre[]> {
+  getGenreMovies(): Observable<MoviesGenre[]> {
     this.url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
-    return this.http.get<{genres: Genre[]}>(this.url, { headers: this.headers })
+    return this.http.get<{genres: MoviesGenre[]}>(this.url, { headers: this.headers })
     .pipe(
       map(response => response.genres)
     );
@@ -53,12 +55,30 @@ export class TmdbService {
   }
 
   getUpcomingMovies(): Observable<Movie[]> {
-
     this.url = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&region='+this.country;
     console.log(this.url);
     return this.http.get<{results: Movie[]}>(this.url, { headers: this.headers })
     .pipe(
       map(response => response.results)
     );
+  }
+
+  getNowPlayingMovies(): Observable<Movie[]> {
+    this.url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&region='+this.country;
+    return this.http.get<{results: Movie[]}>(this.url, { headers: this.headers })
+    .pipe(
+      map(response => response.results)
+    );
+  }
+  
+  getVideoLink(id:string): Observable<MoviesTrailer> {
+    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/videos?language=FR';
+    return this.http.get<MoviesTrailer>(this.url, { headers: this.headers });
+  }
+
+
+  getProvidersMovies(id:string): Observable<MovieProviders> {
+    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/watch/providers';
+    return this.http.get<MovieProviders>(this.url, { headers: this.headers });
   }
 }
