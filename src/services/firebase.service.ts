@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc, getDoc, deleteDoc, updateDoc, deleteField } from "firebase/firestore"; 
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+import { getFirestore } from 'firebase/firestore';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signOut,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import {
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+  updateDoc,
+  deleteField,
+} from 'firebase/firestore';
+import { Users } from 'src/models/Users';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirebaseService {
   private app: any;
@@ -16,13 +29,13 @@ export class FirebaseService {
 
   constructor() {
     const firebaseConfig = {
-      apiKey: "AIzaSyAG4PjJ7dvsSCQnciP3PrFiKO2eo8DZr6k",
-      authDomain: "whattowatch-1a9be.firebaseapp.com",
-      projectId: "whattowatch-1a9be",
-      storageBucket: "whattowatch-1a9be.appspot.com",
-      messagingSenderId: "139337691226",
-      appId: "1:139337691226:web:9425d0a6bba509c7f5e863",
-      measurementId: "G-G6DTLKV6DF"
+      apiKey: 'AIzaSyAG4PjJ7dvsSCQnciP3PrFiKO2eo8DZr6k',
+      authDomain: 'whattowatch-1a9be.firebaseapp.com',
+      projectId: 'whattowatch-1a9be',
+      storageBucket: 'whattowatch-1a9be.appspot.com',
+      messagingSenderId: '139337691226',
+      appId: '1:139337691226:web:9425d0a6bba509c7f5e863',
+      measurementId: 'G-G6DTLKV6DF',
     };
 
     this.app = initializeApp(firebaseConfig);
@@ -41,7 +54,7 @@ export class FirebaseService {
     return this.analytics;
   }
 
-  getDb(){
+  getDb() {
     return this.db;
   }
 
@@ -51,7 +64,7 @@ export class FirebaseService {
    * @param document - Le nom du document à ajouter.
    * @param data - Les données à enregistrer dans le document.
    */
-  async addDocument(collection : string, document : string, data : any) {
+  async addDocument(collection: string, document: string, data: any) {
     await setDoc(doc(this.db, collection, document), data);
   }
 
@@ -61,58 +74,135 @@ export class FirebaseService {
    * @param document - L'ID du document à récupérer.
    * @returns Les données du document récupéré, ou null si le document n'existe pas.
    */
-  async getDocument(collection : string, document : string) {
+  async getDocument(collection: string, document: string) {
     const docRef = doc(this.db, collection, document);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       return docSnap.data();
     } else {
-      console.log("No such document!");
+      console.log('No such document!');
       return null;
     }
   }
 
   /**
-    * Supprime un document d'une collection dans la base de données Firestore.
-    * @param collection - Le nom de la collection.
-    * @param document - L'ID du document à supprimer.
-    */
-  async deleteDocument(collection : string, document : string) {
+   * Supprime un document d'une collection dans la base de données Firestore.
+   * @param collection - Le nom de la collection.
+   * @param document - L'ID du document à supprimer.
+   */
+  async deleteDocument(collection: string, document: string) {
     await deleteDoc(doc(this.db, collection, document));
   }
 
-  async deleteChamp(collection : string, document : string, champ : string) {
+  async deleteChamp(collection: string, document: string, champ: string) {
     const docRef = doc(this.db, collection, document);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       await updateDoc(docRef, {
-        champ: deleteField()
+        champ: deleteField(),
       });
     } else {
-      console.log("No such document!");
+      console.log('No such document!');
     }
   }
 
   /**
    * Crée un nouvel utilisateur avec l'email et le mot de passe spécifiés.
-   * 
+   *
    * @param email - L'email de l'utilisateur.
    * @param password - Le mot de passe de l'utilisateur.
    * @returns Un booléen indiquant si la création de l'utilisateur a réussi.
    */
-  async createUser(email : string, password : string) {
+  async createUser(email: string, password: string) {
     try {
-      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      const user = userCredential.user
+      const userCredential = await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
       console.log(user);
       return true;
     } catch (e) {
       console.error(e);
       return false;
-    }      
+    }
   }
 
 
+  /**
+   * Connecte un utilisateur en utilisant une adresse e-mail et un mot de passe.
+   * 
+   * @param email - L'adresse e-mail de l'utilisateur.
+   * @param password - Le mot de passe de l'utilisateur.
+   * @returns Une promesse résolue avec la valeur true si la connexion est réussie, sinon une promesse résolue avec la valeur false.
+   */
+  async loginWithEmailAndPassword(email: string, password: string) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log(user);
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  }
+
+  /**
+   * Vérifie si un utilisateur est connecté.
+   * @returns L'utilisateur connecté ou false s'il n'y a pas d'utilisateur connecté.
+   */
+  userIsConnected(): any {
+    var user = this.auth.currentUser;
+
+    if (user !== null) {
+      user.providerData.forEach((profile: any) => {
+        var modelUser: Users = {
+          providerId: profile.providerId,
+          uid: profile.uid,
+          displayName: profile.displayName,
+          email: profile.email,
+          photoURL: profile.photoURL,
+        };
+      });
+      return user;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+    * Déconnecte l'utilisateur.
+    * @returns {any} Une promesse qui se résout lorsque l'utilisateur est déconnecté avec succès.
+    */
+  logOut(): any {
+    signOut(this.auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  /**
+    * Récupère les informations de l'utilisateur à partir de l'objet utilisateur fourni.
+    * @param user - L'objet utilisateur.
+    * @returns Les informations de l'utilisateur sous forme d'objet Users.
+    */
+  getUser(user: any): Users {
+    var modelUser: Users = {
+      providerId: user.providerId,
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+    };
+    return modelUser;
+  }
 }

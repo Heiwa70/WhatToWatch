@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { FirebaseService } from 'src/services/firebase.service';
 import { TmdbService } from 'src/services/tmdb.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [FirebaseService, TmdbService, HttpClient],
   bootstrap: [AppComponent]
