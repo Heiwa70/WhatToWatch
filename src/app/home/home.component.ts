@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.api.getPopularMovies().subscribe(
       data => {
-        console.log(data[0].adult);
+        console.log(data);
       }
     );
 
