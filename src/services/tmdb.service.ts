@@ -1,15 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Movie } from 'src/models/Movies';
+import { Movie } from 'src/models/Movie/Movies';
 import { map } from 'rxjs/operators';
-import { MoviesGenre } from 'src/models/MoviesGenre';
-import { MoviesTrailer } from 'src/models/MoviesTrailer';
-import { MovieProviders } from 'src/models/MoviesProviders';
-import { MoviesReleaseDates } from 'src/models/MoviesReleaseDates';
-import { MovieDetails } from 'src/models/MovieDetails';
-import { SearchCompany } from 'src/models/SearchCompany';
-import { SearchActor } from 'src/models/SearchActor';
+import { MoviesGenre } from 'src/models/Movie/MoviesGenre';
+import { MoviesTrailer } from 'src/models/Movie/MoviesTrailer';
+import { MovieProviders } from 'src/models/Movie/MoviesProviders';
+import { MoviesReleaseDates } from 'src/models/Movie/MoviesReleaseDates';
+import { MovieDetails } from 'src/models/Movie/MovieDetails';
+import { SearchCompany } from 'src/models/Company/SearchCompany';
+import { SearchActor } from 'src/models/Actor/SearchActor';
 
 @Injectable({
   providedIn: 'root'
