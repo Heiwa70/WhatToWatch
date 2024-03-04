@@ -17,11 +17,6 @@ export class HomeComponent implements OnInit {
         console.log(data[0].adult);
       }
     );
-    this.api.getReleaseDateMovies('100').subscribe(
-      data => {
-        console.log(data);
-      }
-    );
   }
 
 }

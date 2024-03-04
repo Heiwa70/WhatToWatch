@@ -7,6 +7,9 @@ import { MoviesGenre } from 'src/models/MoviesGenre';
 import { MoviesTrailer } from 'src/models/MoviesTrailer';
 import { MovieProviders } from 'src/models/MoviesProviders';
 import { MoviesReleaseDates } from 'src/models/MoviesReleaseDates';
+import { MovieDetails } from 'src/models/MovieDetails';
+import { SearchCompany } from 'src/models/SearchCompany';
+import { SearchActor } from 'src/models/SearchActor';
 
 @Injectable({
   providedIn: 'root'
@@ -109,5 +112,46 @@ export class TmdbService {
   getReleaseDateMovies(id:string): Observable<MoviesReleaseDates> {
     this.url = 'https://api.themoviedb.org/3/movie/'+id+'/release_dates';
     return this.http.get<MoviesReleaseDates>(this.url, { headers: this.headers });
+  }
+
+  /**
+    * Récupère les détails d'un film à partir de l'API TMDB.
+    * @param id - L'ID du film.
+    * @returns Un Observable qui émet les détails du film.
+    */
+  getDetailsMovie(id:string): Observable<MovieDetails>{
+    this.url = 'https://api.themoviedb.org/3/movie/'+id+'?language=fr-FR';
+    return this.http.get<MovieDetails>(this.url, { headers: this.headers });
+  }
+
+  /**
+    * Récupère les films d'une compagnie spécifique.
+    * @param name - Le nom de la compagnie.
+    * @returns Un Observable qui émet les films de la compagnie.
+    */
+  getMoviesCompany(name:string): Observable<SearchCompany>{
+    this.url =  'https://api.themoviedb.org/3/discover/movie?with_companies='+name;
+    return this.http.get<SearchCompany>(this.url, { headers: this.headers });
+  }
+
+
+  /**
+    * Récupère les films pour un nom d'acteur donné.
+    * @param name - Le nom de l'acteur.
+    * @returns Un Observable de type SearchActor.
+    */
+  getMoviesActor(name:string): Observable<SearchActor>{
+    this.url =  'https://api.themoviedb.org/3/search/person?query='+name+'&include_adult=false';
+    return this.http.get<SearchActor>(this.url, { headers: this.headers });
+  }
+
+  /**
+    * Récupère les films pour un nom donné.
+    * @param name - Le nom du film.
+    * @returns Un Observable de type SearchActor.
+    */
+  getMovies(name:string): Observable<SearchActor>{
+    this.url =  'https://api.themoviedb.org/3/search/movie?query='+name+'&include_adult=false';
+    return this.http.get<SearchActor>(this.url, { headers: this.headers });
   }
 }
