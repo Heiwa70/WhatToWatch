@@ -1,4 +1,4 @@
-interface MoviesRecommendations {
+export interface MoviesRecommendations {
     page : number;
     results : {
         adult : boolean;

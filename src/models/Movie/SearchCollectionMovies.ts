@@ -1,4 +1,4 @@
-interface SearchCollectionMovies {
+export interface SearchCollectionMovies {
     page : number;
     results : {
         adult : boolean;

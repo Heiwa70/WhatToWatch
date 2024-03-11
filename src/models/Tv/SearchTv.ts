@@ -1,4 +1,4 @@
-interface SearchTv {
+export interface SearchTv {
     page: number;
     results: {
         adult: boolean;

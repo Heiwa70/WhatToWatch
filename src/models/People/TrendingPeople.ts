@@ -1,4 +1,4 @@
-interface TrendingPeople {
+export interface TrendingPeople {
     page: number;
     results: {
         adult: boolean;

@@ -1,4 +1,4 @@
-interface PeopleCombinedCredits {
+export interface PeopleCombinedCredits {
     cast : {
         adult : boolean;
         backdrop_path : string;

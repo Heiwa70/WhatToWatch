@@ -37,6 +37,19 @@ import { TvProviders } from 'src/models/Tv/TvProviders';
 import { ProvidersRegions } from 'src/models/ProvidersRegions';
 import { ProvidersMovie } from 'src/models/ProvidersMovie';
 import { ProvidersTv } from 'src/models/ProvidersTv';
+import { MoviesRecommendations } from 'src/models/Movie/MoviesRecommendations';
+import { MoviesSimilars } from 'src/models/Movie/MoviesSimilars';
+import { MoviesTranslations } from 'src/models/Movie/MovieTranslations';
+import { SearchCollectionMovies } from 'src/models/Movie/SearchCollectionMovies';
+import { TrendingMovies } from 'src/models/Movie/TrendingMovies';
+import { PeopleCombinedCredits } from 'src/models/People/PeopleCombinedCredits';
+import { PeopleDetails } from 'src/models/People/PeopleDetails';
+import { PeopleImages } from 'src/models/People/PeopleImages';
+import { PeopleTranslations } from 'src/models/People/PeopleTranslations';
+import { PopularPeoples } from 'src/models/People/PopularPeoples';
+import { TrendingPeople } from 'src/models/People/TrendingPeople';
+import { SearchTv } from 'src/models/Tv/SearchTv';
+import { TrendingTv } from 'src/models/Tv/TrendingTv';
 
 @Injectable({
   providedIn: 'root'

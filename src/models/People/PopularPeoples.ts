@@ -1,4 +1,4 @@
-interface PopularPeoples {
+export interface PopularPeoples {
     page : number;
     results : {
         adult : boolean;

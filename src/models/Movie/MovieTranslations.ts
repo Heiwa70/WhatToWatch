@@ -1,4 +1,4 @@
-interface MoviesTranslations {
+export interface MoviesTranslations {
     id : number;
     translations : {
         iso_3166_1 : string;

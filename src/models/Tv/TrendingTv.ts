@@ -1,4 +1,4 @@
-interface TrendingTv {
+export interface TrendingTv {
     page: number;
     results: {
         adult: boolean;

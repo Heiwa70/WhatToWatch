@@ -1,4 +1,4 @@
-interface MoviesSimilars {
+export interface MoviesSimilars {
     page : number;
     results : {
         adult : boolean;

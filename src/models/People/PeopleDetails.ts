@@ -1,4 +1,4 @@
-interface PeopleDetails {
+export interface PeopleDetails {
     adult: boolean;
     also_known_as: string[];
     biography: string;

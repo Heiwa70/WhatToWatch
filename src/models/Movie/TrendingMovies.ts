@@ -1,4 +1,4 @@
-interface TrendingMovies {
+export interface TrendingMovies {
     page: number;
     results: {
         adult: boolean;

@@ -1,4 +1,4 @@
-interface PeopleImages {
+export interface PeopleImages {
     id: number;
     profiles: {
         aspect_ratio: number;
