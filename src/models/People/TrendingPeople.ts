@@ -1,15 +1,15 @@
-export interface SearchActor {
+interface TrendingPeople {
     page: number;
     results: {
         adult: boolean;
-        gender: number;
-        id: number;
-        known_for_department: string;
-        name: string;
-        original_name: string;
-        popularity: number;
-        profile_path: string;
-        known_for: {
+        id : number;
+        name : string;
+        original_name : string;
+        popularity : number;
+        gender : number;
+        known_for_department : string;
+        profile_path : string;
+        known_for : {
             adult: boolean;
             backdrop_path: string;
             id: number;
