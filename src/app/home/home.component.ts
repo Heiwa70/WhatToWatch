@@ -9,7 +9,7 @@ import { TmdbService } from 'src/services/tmdb.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private firbaseSrv : FirebaseService, private api: TmdbService) { }
+  constructor(private fireBase : FirebaseService, private api: TmdbService) { }
 
   ngOnInit(): void {
     this.api.getPopularMovies().subscribe(
@@ -23,6 +23,9 @@ export class HomeComponent implements OnInit {
         console.log(data);
       }
     );
+
+    console.log("Connexion : "+this.fireBase.userIsConnected());
+
   }
 
 }

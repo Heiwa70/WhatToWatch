@@ -7,6 +7,9 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   signInWithEmailAndPassword,
+  UserCredential,
+  AuthError,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import {
   doc,
@@ -17,6 +20,8 @@ import {
   deleteField,
 } from 'firebase/firestore';
 import { Users } from 'src/models/Users';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +32,7 @@ export class FirebaseService {
   private auth: any;
   private db: any;
 
-  constructor() {
+  constructor(private router: Router) {
     const firebaseConfig = {
       apiKey: 'AIzaSyAG4PjJ7dvsSCQnciP3PrFiKO2eo8DZr6k',
       authDomain: 'whattowatch-1a9be.firebaseapp.com',
@@ -131,70 +136,82 @@ export class FirebaseService {
     }
   }
 
-
   /**
-   * Connecte un utilisateur en utilisant une adresse e-mail et un mot de passe.
-   * 
-   * @param email - L'adresse e-mail de l'utilisateur.
+   * Connecte un utilisateur avec l'email et le mot de passe fournis.
+   *
+   * @param email - L'email de l'utilisateur.
    * @param password - Le mot de passe de l'utilisateur.
-   * @returns Une promesse résolue avec la valeur true si la connexion est réussie, sinon une promesse résolue avec la valeur false.
+   * @returns Une promesse qui se résout en une chaîne de caractères représentant le jeton JWT.
+   * @throws Une erreur s'il y a un problème avec le processus de connexion.
    */
-  async loginWithEmailAndPassword(email: string, password: string) {
+  async loginWithEmailAndPassword(
+    email: string,
+    password: string
+  ): Promise<string> {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        this.auth,
+      const auth = getAuth(); // Récupérer l'objet d'authentification
+      const userCredential: UserCredential = await signInWithEmailAndPassword(
+        auth,
         email,
         password
       );
       const user = userCredential.user;
-      console.log(user);
-      return true;
-    } catch (e) {
-      console.error(e);
-      return false;
+      console.log('Utilisateur connecté:', user);
+
+      // Récupérer le token JWT de l'utilisateur
+      const idToken = await user.getIdToken();
+
+      // Stocker le token JWT dans le stockage local du navigateur
+      sessionStorage.setItem('token', idToken);
+      console.log('Token JWT:', idToken);
+      console.log(sessionStorage.getItem('token'));
+
+      return idToken; // Retourner le token JWT
+    } catch (error: any) {
+      const errorCode = (error as AuthError).code;
+      const errorMessage = (error as AuthError).message;
+      console.error('Erreur lors de la connexion:', errorMessage);
+      throw error;
     }
   }
 
   /**
-   * Vérifie si un utilisateur est connecté.
-   * @returns L'utilisateur connecté ou false s'il n'y a pas d'utilisateur connecté.
+   * Récupère le token de l'utilisateur actuellement connecté.
+   * @returns L'utilisateur actuellement connecté, ou false s'il n'y a pas d'utilisateur connecté.
    */
-  userIsConnected(): any {
-    var user = this.auth.currentUser;
-
-    if (user !== null) {
-      user.providerData.forEach((profile: any) => {
-        var modelUser: Users = {
-          providerId: profile.providerId,
-          uid: profile.uid,
-          displayName: profile.displayName,
-          email: profile.email,
-          photoURL: profile.photoURL,
-        };
-      });
-      return user;
+  userIsConnected(): Users | Boolean {
+    var token = sessionStorage.getItem('token');
+    if (token != null) {
+      // Un utilisateur est connecté
+      return true;
     } else {
+      // Aucun utilisateur n'est connecté
       return false;
     }
   }
 
   /**
-    * Déconnecte l'utilisateur.
-    * @returns {any} Une promesse qui se résout lorsque l'utilisateur est déconnecté avec succès.
-    */
+   * Déconnecte l'utilisateur.
+   * @returns {any} Une promesse qui se résout lorsque l'utilisateur est déconnecté avec succès.
+   */
   logOut(): any {
-    signOut(this.auth).then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-      console.error(error);
-    });
+    signOut(this.auth)
+      .then(() => {
+        sessionStorage.removeItem('token');
+        this.router.navigate(['/']);
+
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   /**
-    * Récupère les informations de l'utilisateur à partir de l'objet utilisateur fourni.
-    * @param user - L'objet utilisateur.
-    * @returns Les informations de l'utilisateur sous forme d'objet Users.
-    */
+   * Récupère les informations de l'utilisateur à partir de l'objet utilisateur fourni.
+   * @param user - L'objet utilisateur.
+   * @returns Les informations de l'utilisateur sous forme d'objet Users.
+   */
   getUser(user: any): Users {
     var modelUser: Users = {
       providerId: user.providerId,
@@ -205,4 +222,12 @@ export class FirebaseService {
     };
     return modelUser;
   }
+
+  /**
+   * Redirige l'utilisateur vers la page d'accueil.
+   */
+  returnHome() {
+    this.router.navigate(['/']);
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FirebaseService } from 'src/services/firebase.service';
 import { TmdbService } from 'src/services/tmdb.service';
@@ -9,19 +9,37 @@ import { TmdbService } from 'src/services/tmdb.service';
 
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        height: '280px',
+      })),
+      state('closed', style({
+        height: '0',
+
+      })),
+      transition('open <=> closed', [
+        animate('0.7s ease-in-out')
+      ]),
+    ]),
+  ]
 })
 export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
+  @ViewChild('menu') menu!: ElementRef;
+  isOpen = false;
 
-  isMenuOpen = false;
+
+  constructor(public firebaseService: FirebaseService, private api: TmdbService) {}
+
 
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.isOpen = !this.isOpen;
   }
+  
 
-  constructor(private firebaseService: FirebaseService, private api: TmdbService) { }
-
+  
 
 }

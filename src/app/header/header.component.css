@@ -8,3 +8,18 @@
   visibility: visible;
   opacity: 1;
 }
+
+@media screen and (max-width: 1024px) {
+  .maxMd {
+    display: none;
+  }
+  .list {
+    overflow: hidden;
+  }
+}
+
+#logo {
+  -webkit-box-shadow: 4px 1px 24px -11px rgba(255, 255, 255, 1);
+  -moz-box-shadow: 4px 1px 24px -11px rgba(255, 255, 255, 1);
+  box-shadow: 4px 1px 24px -11px rgba(255, 255, 255, 1);
+}
