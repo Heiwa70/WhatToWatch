@@ -13,6 +13,8 @@ import { TmdbService } from 'src/services/tmdb.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+import { ListCardComponent } from './list-card/list-card.component';
+import { CardComponent } from './card/card.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    ListCardComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
