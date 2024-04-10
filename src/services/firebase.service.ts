@@ -190,6 +190,17 @@ export class FirebaseService {
     }
   }
 
+  modificationApply(): Users | Boolean {
+    var token = sessionStorage.getItem('token');
+    if (token != null) {
+      // Une modication est appliquée
+      return true;
+    } else {
+      // Aucune modification n'est appliquée
+      return false;
+    }
+  }
+
   /**
    * Déconnecte l'utilisateur.
    * @returns {any} Une promesse qui se résout lorsque l'utilisateur est déconnecté avec succès.
@@ -228,6 +239,10 @@ export class FirebaseService {
    */
   returnHome() {
     this.router.navigate(['/']);
+  }
+
+  returnProfile() {
+    this.router.navigate(['/Profile']);
   }
 
 }

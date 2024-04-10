@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ListCardComponent } from './list-card/list-card.component';
 import { CardComponent } from './card/card.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { CardComponent } from './card/card.component';
     RegisterComponent,
     ListCardComponent,
     CardComponent,
+    ProfileComponent,
+    ProfileEditComponent,
   ],
   imports: [
     BrowserModule,
