@@ -10,4 +10,4 @@ export interface SearchCollectionMovies {
         overview : string;
         poster_path : string;
     }[];
-    }
+}

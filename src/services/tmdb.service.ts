@@ -35,8 +35,7 @@ import { TvTranslations } from 'src/models/Tv/TvTranslations';
 import { TvVideo } from 'src/models/Tv/TvVideo';
 import { TvProviders } from 'src/models/Tv/TvProviders';
 import { ProvidersRegions } from 'src/models/ProvidersRegions';
-import { ProvidersMovie } from 'src/models/ProvidersMovie';
-import { ProvidersTv } from 'src/models/ProvidersTv';
+import { ProvidersTvMovie } from 'src/models/ProvidersTvMovie';
 import { MoviesRecommendations } from 'src/models/Movie/MoviesRecommendations';
 import { MoviesSimilars } from 'src/models/Movie/MoviesSimilars';
 import { MoviesTranslations } from 'src/models/Movie/MovieTranslations';
@@ -632,9 +631,9 @@ export class TmdbService {
    * @param id - L'identifiant du film.
    * @returns Un Observable contenant les fournisseurs de diffusion pour le film.
    */
-  getProvidersMovie(id:string): Observable<ProvidersMovie> {
+  getProvidersMovie(id:string): Observable<ProvidersTvMovie> {
     this.url = 'https://api.themoviedb.org/3/movie/'+id+'/watch/providers';
-    return this.http.get<ProvidersMovie>(this.url, { headers: this.headers });
+    return this.http.get<ProvidersTvMovie>(this.url, { headers: this.headers });
   }
 
 
@@ -643,8 +642,8 @@ export class TmdbService {
    * @param id - L'identifiant de la série.
    * @returns Un Observable contenant les fournisseurs de télévision pour la série spécifiée.
    */
-  getProvidersTv(id:string): Observable<ProvidersTv> {
+  getProvidersTv(id:string): Observable<ProvidersTvMovie> {
     this.url = 'https://api.themoviedb.org/3/tv/'+id+'/watch/providers';
-    return this.http.get<ProvidersTv>(this.url, { headers: this.headers });
+    return this.http.get<ProvidersTvMovie>(this.url, { headers: this.headers });
   }
 }
