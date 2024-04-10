@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef, Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Movie } from 'src/models/Movie/Movies';
 
 @Component({
   selector: 'app-list-card',
@@ -19,15 +20,25 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 export class ListCardComponent implements OnInit {
+  @Input() movies: Movie[] = [];
 
   @ViewChild('carousel', { static: false }) carousel?: ElementRef;
 
-  cards = [  "Transformers 3", "Naruto 2", "Spiderman 1", "Ironman 2", "Batman 3", "Superman 1", "Avengers 2", "Justice League 3"];
+  cards: string[] = [];
   currentCardIndex = 0;
   cardWidth = 300;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['movies'] && changes['movies'].currentValue) {
+      console.log(this.movies);
+      for (let i = 0; i < this.movies.length; i++) {
+        this.cards.push(this.movies[i].poster_path);
+      }
+    }
   }
 
 

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Movie } from 'src/models/Movie/Movies';
+import { Movie, MoviesResponse } from 'src/models/Movie/Movies';
 import { map } from 'rxjs/operators';
 import { MoviesGenre } from 'src/models/Movie/MoviesGenre';
 import { MoviesTrailer } from 'src/models/Movie/MoviesTrailer';
@@ -81,9 +81,9 @@ export class TmdbService {
     * Récupère une liste de films populaires à partir de l'API TMDB.
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
-  getPopularMovies(): Observable<Movie[]> {
+  getPopularMovies(): Observable<MoviesResponse> {
     this.url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
-    return this.http.get<Movie[]>(this.url, { headers: this.headers });
+    return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
   
   /**

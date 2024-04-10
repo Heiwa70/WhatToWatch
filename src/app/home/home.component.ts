@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { TmdbService } from 'src/services/tmdb.service';
+import { Movie, MoviesResponse } from 'src/models/Movie/Movies';
 
 @Component({
   selector: 'app-home',
@@ -11,21 +12,22 @@ export class HomeComponent implements OnInit {
 
   constructor(private fireBase : FirebaseService, private api: TmdbService) { }
 
+  popularMovies: Movie[] = [];
+
   ngOnInit(): void {
+
     this.api.getPopularMovies().subscribe(
       data => {
-        console.log(data);
+        this.popularMovies = data.results;
+      },
+      error => {
+        console.error('Erreur lors de la récupération des films populaires : ', error);
       }
     );
-
-    this.api.getUpcomingMovies().subscribe(
-      data => {
-        console.log(data);
-      }
-    );
-
+    
     console.log("Connexion : "+this.fireBase.userIsConnected());
-
   }
+
+  
 
 }
