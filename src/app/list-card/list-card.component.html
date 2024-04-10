@@ -1,23 +1,24 @@
 <style>
     .carousel {
         display: flex;
+        gap: 20px;
         overflow-x: hidden;
         scroll-snap-type: x mandatory;
     }
-
-    .card {
-        flex: 0 0 auto;
-        width: 300px;
-        height: 500px;
-        scroll-snap-align: start;
-    }
 </style>
+<div class=" w-full flex justify-center mt-5">
+    <div class="relative   w-[90%] h-auto">
+        <h2 class=" top-0 text-white">{{"films populaires" | uppercase}}</h2>
 
-<section id="section-list-card" class=" flex justify-center mt-8">
+    </div>
+</div>
+
+<section id="section-list-card" class=" flex justify-center mt-5">
 
 
-    <div class="   relative carousel-container w-[90%] flex  items-center">
-        <h2 class=" absolute top-0 text-white">{{"films populaires" | uppercase}}</h2>
+
+    <div class="  relative carousel-container w-[90%] flex items-center">
+
         <svg (click)="previousCard()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"
             class="w-20 h-20 cursor-pointer flex-1 hover:scale-110 transition-transform">
             <path fill-rule="evenodd"
@@ -25,15 +26,11 @@
                 clip-rule="evenodd" />
         </svg>
 
-        <div class="carousel w-4/5" #carousel>
-            <div *ngFor="let card of cards; let i = index" class=" card flex items-center rounded-md"
+        <div class="carousel w-4/5 flex" #carousel>
+            <div *ngFor="let card of cards; let i = index" class=" flex-1 card flex items-center rounded-md"
                 [class.current]="i === currentCardIndex">
-                <!--  <div class="p-4">
-                    <img class=" rounded-md w-full h-auto"
-                        src="https://image.tmdb.org/t/p/w500/wkfG7DaExmcVsGLR4kLouMwxeT5.jpg"
-                        alt="Affiche pour Kung Fu Panda 4">
-                </div> -->
-                <app-card [poster_path]="card"></app-card>
+
+                <app-card [movie]="card"></app-card>
             </div>
         </div>
 

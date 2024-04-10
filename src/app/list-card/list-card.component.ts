@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef, Input } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { trigger, state, style, animate, transition, AnimationEvent } from '@angular/animations';
 import { Movie } from 'src/models/Movie/Movies';
 
 @Component({
@@ -21,12 +21,20 @@ import { Movie } from 'src/models/Movie/Movies';
 })
 export class ListCardComponent implements OnInit {
   @Input() movies: Movie[] = [];
+  @Output() toggleCard = new EventEmitter<number>();
+
 
   @ViewChild('carousel', { static: false }) carousel?: ElementRef;
 
-  cards: string[] = [];
+  cards: Movie[] = [];
   currentCardIndex = 0;
   cardWidth = 300;
+
+  isOpen: boolean[] = [];
+
+  isAnimating: boolean = false;
+
+
   constructor() { }
 
   ngOnInit(): void {
@@ -36,11 +44,34 @@ export class ListCardComponent implements OnInit {
     if (changes['movies'] && changes['movies'].currentValue) {
       console.log(this.movies);
       for (let i = 0; i < this.movies.length; i++) {
-        this.cards.push(this.movies[i].poster_path);
+        this.cards.push(this.movies[i]);
       }
     }
   }
-
+  toggle(i: number, open: boolean) {
+    // Only trigger a new animation if no animation is currently running
+    if (!this.isAnimating) {
+      // Close all cards
+      for (let j = 0; j < this.isOpen.length; j++) {
+        this.isOpen[j] = false;
+      }
+  
+      // Open the card the user hovered over
+      if (open) {
+        this.isOpen[i] = true;
+      }
+  
+      // Set isAnimating to true
+      this.isAnimating = true;
+    }
+  }
+  
+  onAnimationEvent(event: AnimationEvent) {
+    // Set isAnimating to false when the animation is done
+    if (event.phaseName === 'done') {
+      this.isAnimating = false;
+    }
+  }
 
 
   nextCard() {
