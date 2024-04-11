@@ -48,6 +48,10 @@ export class RegisterComponent implements OnInit {
         console.log('inscription : ' + result);
         if (result) {
           // inscription réussie
+          this.fireBase.addDocument('users', this.userForm.value.email, {
+            email: this.userForm.value.email,
+          });
+
           this.route.navigate(['/Login']);
         }
         else {

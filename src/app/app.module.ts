@@ -17,6 +17,14 @@ import { ListCardComponent } from './list-card/list-card.component';
 import { CardComponent } from './card/card.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { MenuVerticaleComponent } from './menu-verticale/menu-verticale.component';
+import { ListsComponent } from './lists/lists.component';
+import { MessagesComponent } from './messages/messages.component';
+import { SecurityComponent } from './security/security.component';
+import { SettingsComponent } from './settings/settings.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { PasswordsComponent } from './passwords/passwords.component';
+import { GoalsComponent } from './goals/goals.component';
 
 
 @NgModule({
@@ -31,6 +39,14 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
     CardComponent,
     ProfileComponent,
     ProfileEditComponent,
+    MenuVerticaleComponent,
+    ListsComponent,
+    MessagesComponent,
+    SecurityComponent,
+    SettingsComponent,
+    NotificationsComponent,
+    PasswordsComponent,
+    GoalsComponent,
   ],
   imports: [
     BrowserModule,

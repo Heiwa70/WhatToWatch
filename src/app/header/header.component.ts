@@ -26,8 +26,14 @@ import { TmdbService } from 'src/services/tmdb.service';
   ]
 })
 export class HeaderComponent implements OnInit {
+  searchResults: any[] = [];
+  searchValue: string = '';
+  selectedValue: string = 'film'; // Initial value
 
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.onValueChange(); // Log initial value
+  }
   @ViewChild('menu') menu!: ElementRef;
   isOpen = false;
 
@@ -39,7 +45,31 @@ export class HeaderComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
   
+  onValueChange() {
+    console.log('Value has changed:', this.selectedValue);
+    // Vous pouvez ajouter ici le code pour gérer le changement de valeur
+  }
 
-  
-
+  onSearchInput() {
+  switch (this.selectedValue) {
+    case 'film':
+      this.api.getMovies(this.searchValue).subscribe(response => {
+        this.searchResults = response.results;
+        console.log('Search results:', this.searchResults);
+      });
+      break;
+    case 'tv':
+      this.api.getTvs(this.searchValue).subscribe(response => {
+        this.searchResults = response.results;
+        console.log('Search results:', this.searchResults);
+      });
+      break;
+    case 'actor':
+      this.api.getDetailsPeople(this.searchValue).subscribe(response => {
+        this.searchResults = [response];
+        console.log('Search results:', this.searchResults);
+      });
+      break;
+  }
+}
 }

@@ -5,6 +5,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { ListsComponent } from './lists/lists.component';
+import { MessagesComponent } from './messages/messages.component';
+import { SecurityComponent } from './security/security.component';
+import { SettingsComponent } from './settings/settings.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { PasswordsComponent } from './passwords/passwords.component';
+import { GoalsComponent } from './goals/goals.component';
 
 const routes: Routes = [
   { path: 'Home', component: HomeComponent },
@@ -12,6 +19,13 @@ const routes: Routes = [
   { path: 'Register', component: RegisterComponent },
   { path: 'Profile', component: ProfileComponent },
   { path: 'EditProfile', component: ProfileEditComponent },
+  { path: 'Lists', component: ListsComponent },
+  { path: 'Messages', component: MessagesComponent},
+  { path: 'Security', component: SecurityComponent},
+  { path: 'Settings', component: SettingsComponent},
+  { path: 'Notifications', component: NotificationsComponent},
+  { path: 'Passwords', component: PasswordsComponent},
+  { path: 'Goals', component: GoalsComponent},
   { path: '', redirectTo: '/Home', pathMatch: 'full' }
 ];
 
