@@ -1,12 +1,11 @@
-import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { trigger, state, style, animate, transition, AnimationEvent } from '@angular/animations';
-import { Movie } from 'src/models/Movie/Movies';
-import { PopularTv } from 'src/models/Tv/PopularTv';
+import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { TopRatingTv } from 'src/models/Tv/TopRatingTv';
 
 @Component({
-  selector: 'app-list-card',
-  templateUrl: './list-card.component.html',
-  styleUrls: ['./list-card.component.css'],
+  selector: 'app-list-card-series',
+  templateUrl: './list-card-series.component.html',
+  styleUrls: ['./list-card-series.component.css'],
   animations: [
     trigger('slideInOut', [
       state('in', style({ transform: 'translateX(0)' })),
@@ -20,15 +19,15 @@ import { PopularTv } from 'src/models/Tv/PopularTv';
     ])
   ]
 })
-export class ListCardComponent implements OnInit {
-  @Input() movies: Movie[] = [];
+export class ListCardSeriesComponent implements OnInit {
+
+  @Input() series: TopRatingTv[] = [];
   @Input() title: string = '';
   @Output() toggleCard = new EventEmitter<number>();
 
-
   @ViewChild('carousel', { static: false }) carousel?: ElementRef;
 
-  cards: Movie[] = [];
+  cards: TopRatingTv[] = [];
   currentCardIndex = 0;
   cardWidth = 300;
 
@@ -36,17 +35,15 @@ export class ListCardComponent implements OnInit {
 
   isAnimating: boolean = false;
 
-
   constructor() { }
 
   ngOnInit(): void {
-
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.updateCards('movies', changes);
     this.updateCards('series', changes);
   }
+
 
   updateCards(property: string, changes: SimpleChanges): void {
     if (changes[property] && changes[property].currentValue) {
@@ -76,7 +73,7 @@ export class ListCardComponent implements OnInit {
       this.isAnimating = true;
     }
   }
-  
+
   onAnimationEvent(event: AnimationEvent) {
     // Set isAnimating to false when the animation is done
     if (event.phaseName === 'done') {
@@ -97,6 +94,6 @@ export class ListCardComponent implements OnInit {
       const newScrollPosition = this.carousel.nativeElement.scrollLeft - this.cardWidth;
       this.carousel.nativeElement.scrollTo({ left: newScrollPosition, behavior: 'smooth' });
     }
-  }          
+  }  
 
 }

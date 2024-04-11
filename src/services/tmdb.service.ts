@@ -22,8 +22,8 @@ import { MovieImages } from 'src/models/Movie/MovieImages';
 import { MovieReviews } from 'src/models/Movie/MovieReviews';
 import { SearchMovie } from 'src/models/Movie/SearchMovie';
 import { TvDetails } from 'src/models/Tv/TvDetails';
-import { TopRatingTv } from 'src/models/Tv/TopRatingTv';
-import { PopularTv } from 'src/models/Tv/PopularTv';
+import { TopRatingTv, TopRatingTvResponse } from 'src/models/Tv/TopRatingTv';
+import { PopularTv, PopularTvResponse } from 'src/models/Tv/PopularTv';
 import { TvAggregateCredits } from 'src/models/Tv/TvAggregateCredits';
 import { TvAlternativeTitles } from 'src/models/Tv/TvAlternativeTitles';
 import { TvCredits } from 'src/models/Tv/TvCredits';
@@ -482,9 +482,9 @@ export class TmdbService {
    * Récupère les séries populaires.
    * @returns Un Observable contenant les séries populaires.
    */
-  getPopularTv(): Observable<PopularTv> {
+  getPopularTv(): Observable<PopularTvResponse> {
     this.url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
-    return this.http.get<PopularTv>(this.url, { headers: this.headers });
+    return this.http.get<PopularTvResponse>(this.url, { headers: this.headers });
   }
 
 
@@ -492,9 +492,9 @@ export class TmdbService {
    * Récupère les séries les mieux notées.
    * @returns Un Observable contenant les séries les mieux notées.
    */
-  getTopRatingTv(): Observable<TopRatingTv> {
+  getTopRatingTv(): Observable<TopRatingTvResponse> {
     this.url = 'https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1';
-    return this.http.get<TopRatingTv>(this.url, { headers: this.headers });
+    return this.http.get<TopRatingTvResponse>(this.url, { headers: this.headers });
   }
 
 

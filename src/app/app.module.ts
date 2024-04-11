@@ -15,6 +15,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ListCardComponent } from './list-card/list-card.component';
 import { CardComponent } from './card/card.component';
+import { DetailsComponent } from './details/details.component';
+import { DetailsSeriesComponent } from './details-series/details-series.component';
+import { CardSeriesComponent } from './card-series/card-series.component';
+import { ListCardSeriesComponent } from './list-card-series/list-card-series.component';
 
 
 @NgModule({
@@ -27,6 +31,10 @@ import { CardComponent } from './card/card.component';
     RegisterComponent,
     ListCardComponent,
     CardComponent,
+    DetailsComponent,
+    DetailsSeriesComponent,
+    CardSeriesComponent,
+    ListCardSeriesComponent,
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,7 @@
         <div class="carousel w-4/5 flex" #carousel>
             <div *ngFor="let card of cards; let i = index" class=" flex-1 card flex items-center rounded-md"
                 [class.current]="i === currentCardIndex">
-                <app-card [movie]="card"></app-card>
+                <app-card-series [series]="card"></app-card-series>
             </div>
         </div>
 

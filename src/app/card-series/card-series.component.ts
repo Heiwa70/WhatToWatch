@@ -1,14 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Movie } from 'src/models/Movie/Movies';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopularTv } from 'src/models/Tv/PopularTv';
-
-
+import { TopRatingTv } from 'src/models/Tv/TopRatingTv';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css'],
+  selector: 'app-card-series',
+  templateUrl: './card-series.component.html',
+  styleUrls: ['./card-series.component.css'],
   animations: [
     trigger('openClose', [
       state('open', style({
@@ -37,25 +35,20 @@ import { PopularTv } from 'src/models/Tv/PopularTv';
     ]),
   ]
 })
-export class CardComponent implements OnInit {
+export class CardSeriesComponent implements OnInit {
 
-  @Input() movie?: Movie | PopularTv ;
+  @Input() series?: TopRatingTv ;
   isOpen = false;
 
+  constructor() { }
+
+  ngOnInit(): void {
+    console.log("card component init");
+    console.log(this.series);
+  }
 
   toggle() {
     this.isOpen = !this.isOpen;
-  }
-
-  constructor() {
-    
-  }
-
-  ngOnInit(): void {
-
-    console.log("card component init");
-    console.log(this.movie);
-
   }
 
 }
