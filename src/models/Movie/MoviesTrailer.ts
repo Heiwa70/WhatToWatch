@@ -1,6 +1,6 @@
 export interface MoviesTrailer {
     id: number;
-    results: [{
+    results: {
         name: string;
         key: string;
         site: string;
@@ -9,5 +9,5 @@ export interface MoviesTrailer {
         official: boolean;
         published_at: string;
         id: string;
-    }];
+    }[];
 }
