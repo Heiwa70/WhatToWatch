@@ -44,38 +44,13 @@ export class ListCardComponent implements OnInit {
   }
   
   ngOnChanges(changes: SimpleChanges): void {
-    this.updateCards('movies', changes);
-    this.updateCards('series', changes);
-  }
-
-  updateCards(property: string, changes: SimpleChanges): void {
-    if (changes[property] && changes[property].currentValue) {
-      console.log((this as any)[property]);
-      for (let i = 0; i < (this as any)[property].length; i++) {
-        this.cards.push((this as any)[property][i]);
-      }
-      console.log("card = ");
-      console.log(this.cards);
+    if (changes['movies']) {
+      this.cards = [...changes['movies'].currentValue];
     }
   }
 
-  toggle(i: number, open: boolean) {
-    // Only trigger a new animation if no animation is currently running
-    if (!this.isAnimating) {
-      // Close all cards
-      for (let j = 0; j < this.isOpen.length; j++) {
-        this.isOpen[j] = false;
-      }
-  
-      // Open the card the user hovered over
-      if (open) {
-        this.isOpen[i] = true;
-      }
-  
-      // Set isAnimating to true
-      this.isAnimating = true;
-    }
-  }
+
+
   
   onAnimationEvent(event: AnimationEvent) {
     // Set isAnimating to false when the animation is done
