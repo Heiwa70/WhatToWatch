@@ -11,9 +11,10 @@
       <div class="flex gap-2 maxMd items-center justify-between w-full md:flex md:w-auto md:order-1">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
-            <select
-              class="bg-slate-700 block cursor-pointer appearance-none w-full border border-solid border-gray-600 text-gray-900 py-1 pl-2 pr-6 rounded leading-tight focus:outline-none focus:border-blue-500"
-              style="line-height: 1.5; padding: 0.5em">
+            <select [(ngModel)]="selectedValue"
+                    class="bg-slate-700 block cursor-pointer appearance-none w-full border border-solid border-gray-600 text-gray-900 py-1 pl-2 pr-6 rounded leading-tight focus:outline-none focus:border-blue-500"
+                    style="line-height: 1.5; padding: 0.5em"
+                    (change)="onValueChange()">
               <option value="film">🎬 Film</option>
               <option value="tv">📺 Série TV</option>
               <option value="people">🎭 Personne</option>
@@ -44,6 +45,11 @@
                 <div class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white" (click)="searchValue = result.title" *ngIf="result.poster_path">
                   <img src="https://image.tmdb.org/t/p/w92{{result.poster_path}}" alt="" srcset="" class="mr-4 rounded">
                   <h2 class="font-semibold">{{ result.title }}</h2>
+                  <h2 class="font-semibold">{{ result.name }}</h2>
+                </div>
+                <div class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white" (click)="searchValue = result.title" *ngIf="result.profile_path">
+                  <img src="https://image.tmdb.org/t/p/w92{{result.profile_path}}" alt="" srcset="" class="mr-4 rounded">
+                  <h2 class="font-semibold">{{ result.name }}</h2>
                 </div>
               </ng-container>
             </div>

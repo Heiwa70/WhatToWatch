@@ -42,7 +42,7 @@ import { MoviesTranslations } from 'src/models/Movie/MovieTranslations';
 import { SearchCollectionMovies } from 'src/models/Movie/SearchCollectionMovies';
 import { TrendingMovies } from 'src/models/Movie/TrendingMovies';
 import { PeopleCombinedCredits } from 'src/models/People/PeopleCombinedCredits';
-import { PeopleDetails } from 'src/models/People/PeopleDetails';
+import { ApiResponse, Person } from 'src/models/People/PeopleDetails';
 import { PeopleImages } from 'src/models/People/PeopleImages';
 import { PeopleTranslations } from 'src/models/People/PeopleTranslations';
 import { PopularPeoples } from 'src/models/People/PopularPeoples';
@@ -383,11 +383,15 @@ export class TmdbService {
    * @param id L'identifiant de la personne.
    * @returns Un Observable contenant les détails de la personne.
    */
-  getDetailsPeople(id:string): Observable<PeopleDetails> {
-    this.url = 'https://api.themoviedb.org/3/person/'+id+'?language=en-US';
-    return this.http.get<PeopleDetails>(this.url, { headers: this.headers });
+  getDetailsPeople(id:string): Observable<ApiResponse> {
+    this.url = 'https://api.themoviedb.org/3/person/' + id + '?language=fr-FR';
+    return this.http.get<ApiResponse>(this.url, { headers: this.headers });
   }
 
+  getPeopleMovies(name:string): Observable<ApiResponse> {
+    this.url = 'https://api.themoviedb.org/3/search/person?query='+name+'&include_adult=false&language=fr-FR';
+    return this.http.get<ApiResponse>(this.url, { headers: this.headers });
+  }
 
   /**
    * Récupère les crédits combinés d'une personne.
