@@ -25,7 +25,10 @@ import { SettingsComponent } from './settings/settings.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PasswordsComponent } from './passwords/passwords.component';
 import { GoalsComponent } from './goals/goals.component';
-
+import { DetailsComponent } from './details/details.component';
+import { DetailsSeriesComponent } from './details-series/details-series.component';
+import { CardSeriesComponent } from './card-series/card-series.component';
+import { ListCardSeriesComponent } from './list-card-series/list-card-series.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,10 @@ import { GoalsComponent } from './goals/goals.component';
     NotificationsComponent,
     PasswordsComponent,
     GoalsComponent,
+    DetailsComponent,
+    DetailsSeriesComponent,
+    CardSeriesComponent,
+    ListCardSeriesComponent,
   ],
   imports: [
     BrowserModule,

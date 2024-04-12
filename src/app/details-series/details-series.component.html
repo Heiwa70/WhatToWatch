@@ -1,0 +1,24 @@
+<app-header></app-header>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="video-container w-full flex justify-center mt-5">
+    <iframe class=" rounded" width="1000px" height="500px" [src]="urlTrailer" title="YouTube video player"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+</div>
+
+<div class="mt-5 w-full flex justify-center bg-slate-900">
+    <div class="w-[1000px] flex ">
+        <div class="w-3/4  flex justify-center p-4">
+            <img [src]="'https://image.tmdb.org/t/p/w500' + details.poster_path" alt="" srcset="">
+        </div>
+        <div class="w-2/4  p-4">
+            <h2 class="text-white text-center mt-2">{{details.name}}</h2>
+            <p class="text-white text-justify">{{details.overview}}</p>
+            <p title="{{details.vote_count}}"
+                class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+                <i class="fas fa-star text-yellow-500 mr-2"></i> {{details.vote_average}}
+            </p>
+        </div>
+    </div>
+</div>

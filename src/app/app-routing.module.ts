@@ -12,6 +12,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PasswordsComponent } from './passwords/passwords.component';
 import { GoalsComponent } from './goals/goals.component';
+import { DetailsComponent } from './details/details.component';
+import { DetailsSeriesComponent } from './details-series/details-series.component';
 
 const routes: Routes = [
   { path: 'Home', component: HomeComponent },
@@ -26,6 +28,8 @@ const routes: Routes = [
   { path: 'Notifications', component: NotificationsComponent},
   { path: 'Passwords', component: PasswordsComponent},
   { path: 'Goals', component: GoalsComponent},
+  { path: 'Details/Movie/:id', component: DetailsComponent },
+  { path: 'Details/Series/:id', component: DetailsSeriesComponent },
   { path: '', redirectTo: '/Home', pathMatch: 'full' }
 ];
 
