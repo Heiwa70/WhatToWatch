@@ -45,19 +45,21 @@
               <ng-container *ngFor="let result of searchResults">
                 <div [routerLink]="['/Details/Movie', result.id]"
                   class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white"
-                  (click)="searchValue = result.title" *ngIf="result.poster_path && selectedValue === 'film'">
+                  (click)="searchValue = result.title" *ngIf="result.poster_path !== null && selectedValue === 'film'">
                   <img src="https://image.tmdb.org/t/p/w92{{result.poster_path}}" alt="" srcset="" class="mr-4 rounded">
                   <h2 class="font-semibold">{{ result.title }}</h2>
 
                 </div>
                 <div [routerLink]="['/Details/Series', result.id]"
                   class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white"
-                  (click)="searchValue = result.name" *ngIf="result.poster_path && selectedValue === 'tv'">
+                  (click)="searchValue = result.name" *ngIf="result.poster_path !== null && selectedValue === 'tv'">
                   <img src="https://image.tmdb.org/t/p/w92{{result.poster_path}}" alt="" srcset="" class="mr-4 rounded">
                   <h2 class="font-semibold">{{ result.name }}</h2>
                 </div>
-                <div class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white"
-                  (click)="searchValue = result.title" *ngIf="result.profile_path">
+                <div [routerLink]="['/Details/Actor', result.id]"
+                  class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white"
+                  (click)="searchValue = result.title"
+                  *ngIf="result.profile_path !== null && selectedValue ==='people'">
                   <img src="https://image.tmdb.org/t/p/w92{{result.profile_path}}" alt="" srcset=""
                     class="mr-4 rounded">
                   <h2 class="font-semibold">{{ result.name }}</h2>

@@ -10,7 +10,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./details-series.component.css'],
 })
 export class DetailsSeriesComponent implements OnInit {
-  idDetails: string | null = '';
+  idDetails: string = '';
   details: TvDetails = {} as TvDetails;
   urlTrailer?: SafeResourceUrl;
   site: string = '';
@@ -23,13 +23,15 @@ export class DetailsSeriesComponent implements OnInit {
   ) {}
 
 ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
     if (id === null) {
         return;
     }
     this.idDetails = id;
     this.getDetailsTv(id);
-    this.getTrailer(id);
+    this.getTrailer(id);  
+  });
 }
 
 getDetailsTv(id: string): void {
