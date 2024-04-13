@@ -5,6 +5,8 @@ export interface ApiResponse {
 
 export interface Person {
     adult: boolean;
+    biography: string;
+    homepage: string;
     gender: number;
     id: number;
     known_for_department: string;

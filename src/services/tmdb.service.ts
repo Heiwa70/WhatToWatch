@@ -383,9 +383,9 @@ export class TmdbService {
    * @param id L'identifiant de la personne.
    * @returns Un Observable contenant les détails de la personne.
    */
-  getDetailsPeople(id:string): Observable<ApiResponse> {
-    this.url = 'https://api.themoviedb.org/3/person/' + id + '?language=fr-FR';
-    return this.http.get<ApiResponse>(this.url, { headers: this.headers });
+  getDetailsPeople(id:string): Observable<Person> {
+    this.url = 'https://api.themoviedb.org/3/person/' + id + '?language=fr';
+    return this.http.get<Person>(this.url, { headers: this.headers });
   }
 
   getPeopleMovies(name:string): Observable<ApiResponse> {

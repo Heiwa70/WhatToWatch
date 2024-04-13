@@ -24,10 +24,12 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+   this.route.paramMap.subscribe((params) => {
+    const id = params.get('id');
     this.idDetails = id;
     this.getMovieDetails(this.idDetails as string);
     this.getTrailer(this.idDetails as string);
+    });
   }
 
   getMovieDetails(id: string): void {

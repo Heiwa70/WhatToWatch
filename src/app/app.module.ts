@@ -29,6 +29,7 @@ import { DetailsComponent } from './details/details.component';
 import { DetailsSeriesComponent } from './details-series/details-series.component';
 import { CardSeriesComponent } from './card-series/card-series.component';
 import { ListCardSeriesComponent } from './list-card-series/list-card-series.component';
+import { DetailsActorsComponent } from './details-actors/details-actors.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ListCardSeriesComponent } from './list-card-series/list-card-series.com
     DetailsSeriesComponent,
     CardSeriesComponent,
     ListCardSeriesComponent,
+    DetailsActorsComponent,
   ],
   imports: [
     BrowserModule,

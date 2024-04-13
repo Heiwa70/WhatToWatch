@@ -69,8 +69,8 @@ export class FirebaseService {
    * @param document - Le nom du document à ajouter.
    * @param data - Les données à enregistrer dans le document.
    */
-  async addDocument(collection: string, document: string, data: any) {
-    await setDoc(doc(this.db, collection, document), data);
+  async addDocument(collection: string, path: string, data: any) {
+    await setDoc(doc(this.db, collection, path), data);
   }
 
   /**
