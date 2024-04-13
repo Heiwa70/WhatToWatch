@@ -42,9 +42,13 @@
           
             <div class="absolute w-full bg-gray-700 mt-2 rounded-lg border border-gray-300 z-50 custom-scrollbar" *ngIf="searchResults.length > 0" style="width: 400px; right: 50%; transform: translateX(50%); height: 200px; overflow-y: auto;">
               <ng-container *ngFor="let result of searchResults">
-                <div class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white" (click)="searchValue = result.title" *ngIf="result.poster_path">
+                <div [routerLink]="['/Details/Movie', result.id]"class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white" (click)="searchValue = result.title" *ngIf="result.poster_path && selectedValue === 'film'">
                   <img src="https://image.tmdb.org/t/p/w92{{result.poster_path}}" alt="" srcset="" class="mr-4 rounded">
                   <h2 class="font-semibold">{{ result.title }}</h2>
+                  
+                </div>
+                <div [routerLink]="['/Details/Series', result.id]"class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white" (click)="searchValue = result.name" *ngIf="result.poster_path && selectedValue === 'tv'">
+                  <img src="https://image.tmdb.org/t/p/w92{{result.poster_path}}" alt="" srcset="" class="mr-4 rounded">
                   <h2 class="font-semibold">{{ result.name }}</h2>
                 </div>
                 <div class="flex items-center p-4 hover:bg-gray-400 cursor-pointer rounded text-white" (click)="searchValue = result.title" *ngIf="result.profile_path">
