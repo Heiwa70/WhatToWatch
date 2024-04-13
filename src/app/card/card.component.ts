@@ -39,16 +39,20 @@ import { PopularTv } from 'src/models/Tv/PopularTv';
 })
 export class CardComponent implements OnInit {
 
-  @Input() movie?: Movie | PopularTv ;
+  @Input() movie?: Movie | PopularTv;
   isOpen = false;
+  heartClicked = false; 
 
 
   toggle() {
     this.isOpen = !this.isOpen;
   }
 
+  heartToggle() {
+    this.heartClicked = !this.heartClicked;
+  }
+
   constructor() {
-    
   }
 
   ngOnInit(): void {
@@ -57,5 +61,6 @@ export class CardComponent implements OnInit {
     console.log(this.movie);
 
   }
+
 
 }
