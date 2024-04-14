@@ -1,11 +1,11 @@
-export interface TopRatingTvResponse {
+export interface TvResponse {
     page: number;
-    results: TopRatingTv[];
+    results: Tv[];
     total_pages: number;
     total_results: number;
 }
 
-export interface TopRatingTv {
+export interface Tv {
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[];

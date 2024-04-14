@@ -1,6 +1,4 @@
-export interface PopularPeoples {
-    page : number;
-    results : {
+export interface Peoples {
         adult : boolean;
         gender : number;
         id : number;
@@ -26,5 +24,11 @@ export interface PopularPeoples {
             vote_average : number;
             vote_count : number;
         }[];
-    }[];
+}
+
+export interface PeoplesResponse {
+    page : number;
+    results : Peoples[];
+    total_pages : number;
+    total_results : number;
 }

@@ -15,6 +15,10 @@ import { GoalsComponent } from './goals/goals.component';
 import { DetailsComponent } from './details/details.component';
 import { DetailsSeriesComponent } from './details-series/details-series.component';
 import { DetailsActorsComponent } from './details-actors/details-actors.component';
+import { NewListComponent } from './new-list/new-list.component';
+import { FilmsComponent } from './films/films.component';
+import { SeriesComponent } from './series/series.component';
+import { PersonneComponent } from './personne/personne.component';
 
 const routes: Routes = [
   { path: 'Home', component: HomeComponent },
@@ -32,6 +36,10 @@ const routes: Routes = [
   { path: 'Details/Movie/:id', component: DetailsComponent },
   { path: 'Details/Series/:id', component: DetailsSeriesComponent },
   {path: 'Details/Actor/:id', component: DetailsActorsComponent},
+  { path: 'NewList', component: NewListComponent},
+  { path: 'Films', component: FilmsComponent},
+  { path: 'Series', component: SeriesComponent},
+  { path: 'Personne', component: PersonneComponent},
   { path: '', redirectTo: '/Home', pathMatch: 'full' }
 ];
 

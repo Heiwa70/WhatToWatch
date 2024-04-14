@@ -30,6 +30,13 @@ import { DetailsSeriesComponent } from './details-series/details-series.componen
 import { CardSeriesComponent } from './card-series/card-series.component';
 import { ListCardSeriesComponent } from './list-card-series/list-card-series.component';
 import { DetailsActorsComponent } from './details-actors/details-actors.component';
+import { NewListComponent } from './new-list/new-list.component';
+import { FilmsComponent } from './films/films.component';
+import { SeriesComponent } from './series/series.component';
+import { PersonneComponent } from './personne/personne.component';
+import { CardPersonneComponent } from './card-personne/card-personne.component';
+import { ListCardPersonneComponent } from './list-card-personne/list-card-personne.component';
+import { TruncatePipe } from './Pipes/biography';
 
 @NgModule({
   declarations: [
@@ -56,6 +63,13 @@ import { DetailsActorsComponent } from './details-actors/details-actors.componen
     CardSeriesComponent,
     ListCardSeriesComponent,
     DetailsActorsComponent,
+    NewListComponent,
+    FilmsComponent,
+    SeriesComponent,
+    PersonneComponent,
+    CardPersonneComponent,
+    ListCardPersonneComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

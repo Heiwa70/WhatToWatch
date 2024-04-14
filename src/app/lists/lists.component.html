@@ -2,5 +2,10 @@
 
 <br>
 <div class="flex justify-between">
-    <app-menu-verticale></app-menu-verticale>
+    <app-menu-verticale class="menu"></app-menu-verticale>
+    <div class="poster-grid">
+        <a *ngFor="let list of lists" [routerLink]="['/poster', list]">
+            <img class="poster" [src]="'assets/poster/' + list" alt="Poster">
+        </a>
+    </div>
 </div>

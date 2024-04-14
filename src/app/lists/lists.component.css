@@ -1,0 +1,27 @@
+.poster-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; /* ajoute une marge entre les rangées et les colonnes */
+    
+}
+
+.poster {
+    width: 80%; /* réduit la taille des affiches */
+    max-width: 300px; /* limite la taille maximale des affiches */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.poster:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .poster-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.menu {
+    margin-right: 20px; /* change this value to the amount of space you want */
+}

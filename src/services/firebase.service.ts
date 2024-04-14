@@ -10,6 +10,8 @@ import {
   UserCredential,
   AuthError,
   onAuthStateChanged,
+  updateEmail,
+  updatePassword,
 } from 'firebase/auth';
 import {
   doc,
@@ -61,6 +63,10 @@ export class FirebaseService {
 
   getDb() {
     return this.db;
+  }
+
+  getAuth() {
+    return this.auth;
   }
 
   /**
@@ -163,6 +169,7 @@ export class FirebaseService {
 
       // Stocker le token JWT dans le stockage local du navigateur
       sessionStorage.setItem('token', idToken);
+      sessionStorage.setItem('email', email);
       console.log('Token JWT:', idToken);
       console.log(sessionStorage.getItem('token'));
 
@@ -234,6 +241,45 @@ export class FirebaseService {
     return modelUser;
   }
 
+  updateEmail(newEmail: string) {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      updateEmail(user, newEmail).then(() => {
+        console.log('Email updated');
+        sessionStorage.setItem('email', newEmail);
+        this.router.navigate(['/Profile']);
+      }).catch((error: Error) => {
+        console.error(error);
+      });
+    } else {
+      console.error('No user is signed in');
+    }
+  });
+}
+
+updatePassword(password: string, confirmPassword: string) {
+
+  if (password !== confirmPassword) {
+    console.error('Password and confirm password do not match');
+    return;
+  }
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      updatePassword(user, password).then(() => {
+        console.log('Password updated');
+        this.router.navigate(['/Profile']);
+      }).catch((error: Error) => {
+        console.error(error);
+      });
+    } else {
+      console.error('No user is signed in');
+    }
+  });
+}
+
   /**
    * Redirige l'utilisateur vers la page d'accueil.
    */
@@ -244,5 +290,4 @@ export class FirebaseService {
   returnProfile() {
     this.router.navigate(['/Profile']);
   }
-
 }

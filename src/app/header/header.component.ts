@@ -32,6 +32,7 @@ import { TmdbService } from 'src/services/tmdb.service';
   ],
 })
 export class HeaderComponent implements OnInit {
+  email: string = sessionStorage.getItem('email')!;
   searchResults: any[] = [];
   searchValue: string = '';
   selectedValue: string = 'film'; // Initial value

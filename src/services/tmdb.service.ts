@@ -22,7 +22,7 @@ import { MovieImages } from 'src/models/Movie/MovieImages';
 import { MovieReviews } from 'src/models/Movie/MovieReviews';
 import { SearchMovie } from 'src/models/Movie/SearchMovie';
 import { TvDetails } from 'src/models/Tv/TvDetails';
-import { TopRatingTv, TopRatingTvResponse } from 'src/models/Tv/TopRatingTv';
+import { Tv, TvResponse } from 'src/models/Tv/Tv';
 import { PopularTv, PopularTvResponse } from 'src/models/Tv/PopularTv';
 import { TvAggregateCredits } from 'src/models/Tv/TvAggregateCredits';
 import { TvAlternativeTitles } from 'src/models/Tv/TvAlternativeTitles';
@@ -45,7 +45,7 @@ import { PeopleCombinedCredits } from 'src/models/People/PeopleCombinedCredits';
 import { ApiResponse, Person } from 'src/models/People/PeopleDetails';
 import { PeopleImages } from 'src/models/People/PeopleImages';
 import { PeopleTranslations } from 'src/models/People/PeopleTranslations';
-import { PopularPeoples } from 'src/models/People/PopularPeoples';
+import { PeoplesResponse } from 'src/models/People/People';
 import { TrendingPeople } from 'src/models/People/TrendingPeople';
 import { SearchTv } from 'src/models/Tv/SearchTv';
 import { TrendingTv } from 'src/models/Tv/TrendingTv';
@@ -99,27 +99,27 @@ export class TmdbService {
     * Récupère une liste de films les mieux notés à partir de l'API TMDB.
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
-  getTopRatingMovies(): Observable<Movie[]> {
+  getTopRatingMovies(): Observable<MoviesResponse> {
     this.url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
-    return this.http.get<Movie[]>(this.url, { headers: this.headers });
+    return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
 
   /**
     * Récupère une liste de films à venir.
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
-  getUpcomingMovies(): Observable<Movie[]> {
+  getUpcomingMovies(): Observable<MoviesResponse> {
     this.url = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&region='+this.country;
-    return this.http.get<Movie[]>(this.url, { headers: this.headers });
+    return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
 
   /**
     * Récupère une liste de films actuellement diffusés.
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
-  getNowPlayingMovies(): Observable<Movie[]> {
+  getNowPlayingMovies(): Observable<MoviesResponse> {
     this.url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&region='+this.country;
-    return this.http.get<Movie[]>(this.url, { headers: this.headers });
+    return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
   
   /**
@@ -372,9 +372,9 @@ export class TmdbService {
    * Récupère les personnes populaires.
    * @returns Un Observable contenant un tableau de PopularPeoples.
    */
-  getPoularPeople(): Observable<PopularPeoples[]> {
+  getPopularPeoples(): Observable<PeoplesResponse> {
     this.url = 'https://api.themoviedb.org/3/person/popular?language=en-US&page=1';
-    return this.http.get<PopularPeoples[]>(this.url, { headers: this.headers });
+    return this.http.get<PeoplesResponse>(this.url, { headers: this.headers });
   }
 
 
@@ -475,9 +475,9 @@ export class TmdbService {
    * @param timePeriod La période de temps pour laquelle récupérer les émissions tendances. Peut être 'day' pour la journée en cours ou 'week' pour la semaine en cours.
    * @returns Un Observable contenant les émissions de télévision tendances.
    */
-  getTrendingTv(timePeriod: 'day' | 'week'): Observable<TrendingTv> {
+  getTrendingTv(timePeriod: 'day' | 'week'): Observable<TvResponse> {
     this.url = `https://api.themoviedb.org/3/trending/tv/${timePeriod}?language=en-US`;
-    return this.http.get<TrendingTv>(this.url, { headers: this.headers });
+    return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
 
@@ -486,9 +486,9 @@ export class TmdbService {
    * Récupère les séries populaires.
    * @returns Un Observable contenant les séries populaires.
    */
-  getPopularTv(): Observable<PopularTvResponse> {
+  getPopularTv(): Observable<TvResponse> {
     this.url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
-    return this.http.get<PopularTvResponse>(this.url, { headers: this.headers });
+    return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
 
@@ -496,11 +496,28 @@ export class TmdbService {
    * Récupère les séries les mieux notées.
    * @returns Un Observable contenant les séries les mieux notées.
    */
-  getTopRatingTv(): Observable<TopRatingTvResponse> {
+  getTopRatingTv(): Observable<TvResponse> {
     this.url = 'https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1';
-    return this.http.get<TopRatingTvResponse>(this.url, { headers: this.headers });
+    return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
+  /**
+    * Récupère une liste de séries télévisées qui sont diffusées aujourd'hui.
+    * @returns Un Observable qui émet un objet TvResponse contenant la liste des séries télévisées.
+    */
+  getAiringTodayTv(): Observable<TvResponse> {
+    this.url = 'https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1';
+    return this.http.get<TvResponse>(this.url, { headers: this.headers });
+  }
+
+  /**
+    * Récupère la liste des séries TV actuellement diffusées.
+    * @returns Un Observable qui émet un objet TvResponse contenant la liste des séries TV.
+    */
+  getOnTheAirTv(): Observable<TvResponse> {
+    this.url = 'https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1';
+    return this.http.get<TvResponse>(this.url, { headers: this.headers });
+  }
 
 
   /**

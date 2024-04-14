@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { PopularTv } from 'src/models/Tv/PopularTv';
-import { TopRatingTv } from 'src/models/Tv/TopRatingTv';
+import { Tv } from 'src/models/Tv/Tv';
 
 @Component({
   selector: 'app-card-series',
@@ -37,7 +37,7 @@ import { TopRatingTv } from 'src/models/Tv/TopRatingTv';
 })
 export class CardSeriesComponent implements OnInit {
 
-  @Input() series?: TopRatingTv ;
+  @Input() series?: Tv ;
   isOpen = false;
 
   constructor() { }

@@ -3,7 +3,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { TmdbService } from 'src/services/tmdb.service';
 import { Movie, MoviesResponse } from 'src/models/Movie/Movies';
 import { PopularTv, PopularTvResponse } from 'src/models/Tv/PopularTv';
-import { TopRatingTv, TopRatingTvResponse } from 'src/models/Tv/TopRatingTv';
+import { Tv, TvResponse } from 'src/models/Tv/Tv';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private fireBase : FirebaseService, private api: TmdbService) { }
 
   popularMovies: Movie[] = [];
-  popularSeries: TopRatingTv[] = [];
+  popularSeries: Tv[] = [];
 
   ngOnInit(): void {
 
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     );
 
     this.api.getTopRatingTv().subscribe(
-      (data: TopRatingTvResponse) => {
+      (data: TvResponse) => {
         this.popularSeries = data.results;
       },
       error => {

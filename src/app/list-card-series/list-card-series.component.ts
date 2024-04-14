@@ -1,6 +1,6 @@
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { TopRatingTv } from 'src/models/Tv/TopRatingTv';
+import { Tv } from 'src/models/Tv/Tv';
 
 @Component({
   selector: 'app-list-card-series',
@@ -21,13 +21,13 @@ import { TopRatingTv } from 'src/models/Tv/TopRatingTv';
 })
 export class ListCardSeriesComponent implements OnInit {
 
-  @Input() series: TopRatingTv[] = [];
+  @Input() series: Tv[] = [];
   @Input() title: string = '';
   @Output() toggleCard = new EventEmitter<number>();
 
   @ViewChild('carousel', { static: false }) carousel?: ElementRef;
 
-  cards: TopRatingTv[] = [];
+  cards: Tv[] = [];
   currentCardIndex = 0;
   cardWidth = 300;
 
