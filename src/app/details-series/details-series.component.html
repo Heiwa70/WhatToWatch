@@ -21,6 +21,26 @@
                 class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
                 <i class="fas fa-star text-yellow-500 mr-2"></i> {{details.vote_average}}
             </p>
+            <p class="text-white">Date de sortie: {{details.first_air_date}}</p>
+            <p class="text-white">Durée: {{details.episode_run_time}} minutes</p>
+            <p class="text-white">Budget: {{details.created_by}} $</p>
+            <p class="text-white">Revenue: {{details.genres}} $</p>
+            <p class="text-white">Status: {{details.status}}</p>
+            <p class="text-white">Popularité: {{details.popularity}}</p>
+            <p class="text-white">Langue: {{details.original_language}}</p>
+            <p class="text-white">Genre: {{details.genres[0].name}}</p>
+            <p class="text-white">Production: {{details.production_companies[0].name}}</p>
+            <p class="text-white">Pays: {{details.production_countries[0].name}}</p>
+            <p class="text-white">Note: {{details.vote_average}}/10</p>
+            <p class="text-white">Nombre de votes: {{details.vote_count}}</p>
+            <p class="text-white">Nombre de saisons: {{details.number_of_seasons}}</p>
+            <p class="text-white">Nombre d'épisodes: {{details.number_of_episodes}}</p>
+            <p class="text-white">Dernière diffusion: {{details.last_air_date}}</p>
+            <p class="text-white">Prochaine diffusion: {{details.next_episode_to_air}}</p>
+            <p class="text-white">Créé par: {{details.created_by[0].name}}</p>
+            <p class="text-white">Réseaux: {{details.networks[0].name}}</p>
+            <p class="text-white">Type: {{details.type}}</p>
+            <p class="text-white">Homepage: {{details.homepage}}</p>
         </div>
     </div>
 </div>

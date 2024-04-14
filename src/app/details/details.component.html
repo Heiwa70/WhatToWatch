@@ -20,6 +20,19 @@
                 class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
                 <i class="fas fa-star text-yellow-500 mr-2"></i> {{details.vote_average}}
             </p>
+            <p class="text-white">Date de sortie: {{details.release_date}}</p>
+            <p class="text-white">Durée: {{details.runtime}} minutes</p>
+            <p class="text-white">Budget: {{details.budget}} $</p>
+            <p class="text-white">Revenue: {{details.revenue}} $</p>
+            <p class="text-white">Status: {{details.status}}</p>
+            <p class="text-white">Popularité: {{details.popularity}}</p>
+            <p class="text-white">Langue: {{details.original_language}}</p>
+            <p class="text-white">Genre: {{details.genres[0].name}}</p>
+            <p class="text-white">Production: {{details.production_companies[0].name}}</p>
+            <p class="text-white">Pays: {{details.production_countries[0].name}}</p>
+            <p class="text-white">Note: {{details.vote_average}}/10</p>
+            <p class="text-white">Nombre de votes: {{details.vote_count}}</p>
+
         </div>
     </div>
 </div>
