@@ -14,6 +14,8 @@ export class DetailsComponent implements OnInit {
   idDetails: string | null = '';
   details: MovieDetails = {} as MovieDetails;
   urlTrailer?: SafeResourceUrl;
+  urlIsValide = false;
+
   site: string = '';
 
   constructor(
@@ -26,7 +28,11 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
    this.route.paramMap.subscribe((params) => {
     const id = params.get('id');
+    if (id === null) {
+      return;
+    }
     this.idDetails = id;
+    this.urlIsValide = false;
     this.getMovieDetails(this.idDetails as string);
     this.getTrailer(this.idDetails as string);
     });
@@ -41,13 +47,18 @@ export class DetailsComponent implements OnInit {
   }
 
   getTrailer(id: string): void {
-    if (id !== null) {
-      let videoUrl = 'https://www.youtube.com/embed/';
-      this.api.getVideoLink(id).subscribe((trailer) => {
+  if (id !== null) {
+    let videoUrl = 'https://www.youtube.com/embed/';
+    this.api.getVideoLink(id).subscribe((trailer) => {
+      if (trailer.results[0] !== undefined) {
+        this.urlIsValide = true;
         this.urlTrailer = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl+trailer.results[0].key);
-        console.log(this.urlTrailer);
-        console.log(this.site);
-      });
-    }
+      } else {
+        this.urlTrailer = this.sanitizer.bypassSecurityTrustResourceUrl('');
+        console.log('No trailer found');
+      }
+      console.log(this.urlTrailer);
+    });
   }
+}
 }

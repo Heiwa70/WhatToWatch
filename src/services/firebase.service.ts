@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import { getFirestore } from 'firebase/firestore';
+import {
+  WhereFilterOp,
+  getFirestore,
+  where,
+  query,
+  getDocs,
+  collection,
+} from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -22,8 +28,9 @@ import {
   deleteField,
 } from 'firebase/firestore';
 import { Users } from 'src/models/Users';
-import { Observable } from 'rxjs';
+import { Observable, map, from } from 'rxjs';
 import { Router } from '@angular/router';
+import { Liste } from 'src/models/Liste';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +53,6 @@ export class FirebaseService {
     };
 
     this.app = initializeApp(firebaseConfig);
-    this.analytics = getAnalytics(this.app);
 
     this.auth = getAuth(this.app);
 
@@ -72,7 +78,7 @@ export class FirebaseService {
   /**
    * Ajoute un document à une collection spécifiée dans la base de données Firestore.
    * @param collection - Le nom de la collection dans laquelle ajouter le document.
-   * @param document - Le nom du document à ajouter.
+   * @param path - Chemin du document.
    * @param data - Les données à enregistrer dans le document.
    */
   async addDocument(collection: string, path: string, data: any) {
@@ -85,16 +91,44 @@ export class FirebaseService {
    * @param document - L'ID du document à récupérer.
    * @returns Les données du document récupéré, ou null si le document n'existe pas.
    */
-  async getDocument(collection: string, document: string) {
-    const docRef = doc(this.db, collection, document);
-    const docSnap = await getDoc(docRef);
+  getDocument(collectionPath: string, docPath: string): Observable<any> {
+    const docRef = doc(this.db, collectionPath, docPath);
 
-    if (docSnap.exists()) {
-      return docSnap.data();
-    } else {
-      console.log('No such document!');
-      return null;
-    }
+    return from(getDoc(docRef)).pipe(
+      map((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          return docSnapshot.data();
+        } else {
+          console.log('No document found!');
+          return null;
+        }
+      })
+    );
+  }
+
+
+ async getListWhere(identifiants: string, liste: string, id: string): Promise<boolean | Liste> {
+  const userDocRef = doc(this.db, 'users', identifiants);
+  const listeCollectionRef = collection(userDocRef, 'liste');
+  const likeDocRef = doc(listeCollectionRef, liste);
+
+  const docSnapshot = await getDoc(likeDocRef);
+  if (docSnapshot.exists()) {
+    const data = docSnapshot.data();
+    const liste: Liste = {
+      id: data['id'],
+      type: data['type']
+    };
+    return liste;
+  } else {
+    console.log('Document does not exist');
+    return false;
+  }
+}
+
+  async updateDocument(collection: string, document: string, data: any) {
+    const docRef = doc(this.db, collection, document);
+    await updateDoc(docRef, data);
   }
 
   /**
@@ -106,18 +140,26 @@ export class FirebaseService {
     await deleteDoc(doc(this.db, collection, document));
   }
 
-  async deleteChamp(collection: string, document: string, champ: string) {
-    const docRef = doc(this.db, collection, document);
-    const docSnap = await getDoc(docRef);
+  async deleteItemList( liste: string, id: number) {
+  const docRef = doc(this.db, 'users', sessionStorage.getItem('email')!, 'liste', liste);
+  const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      await updateDoc(docRef, {
-        champ: deleteField(),
-      });
-    } else {
-      console.log('No such document!');
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    const champId = data?.['id'];
+    const champType = data?.['type'];
+
+    if (champId && champType) {
+      const index = champId.indexOf(id);
+
+      if (index > -1) {
+        champId.splice(index, 1);
+        champType.splice(index, 1);
+        await updateDoc(docRef, { ['id']: champId, ['type']: champType });
+      }
     }
   }
+}
 
   /**
    * Crée un nouvel utilisateur avec l'email et le mot de passe spécifiés.
@@ -167,9 +209,9 @@ export class FirebaseService {
       // Récupérer le token JWT de l'utilisateur
       const idToken = await user.getIdToken();
 
-      // Stocker le token JWT dans le stockage local du navigateur
+      // Stocker le token JWT et l'email dans le stockage local du navigateur
       sessionStorage.setItem('token', idToken);
-      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('email', email); // Evite d'intéragir avec la base de données pour récupérer l'email
       console.log('Token JWT:', idToken);
       console.log(sessionStorage.getItem('token'));
 
@@ -216,6 +258,7 @@ export class FirebaseService {
     signOut(this.auth)
       .then(() => {
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('email');
         this.router.navigate(['/']);
 
         // Sign-out successful.
@@ -230,7 +273,7 @@ export class FirebaseService {
    * @param user - L'objet utilisateur.
    * @returns Les informations de l'utilisateur sous forme d'objet Users.
    */
-  getUser(user: any): Users {
+  getUser(user: Users): Users {
     var modelUser: Users = {
       providerId: user.providerId,
       uid: user.uid,
