@@ -6,15 +6,15 @@ import { FirebaseService } from 'src/services/firebase.service';
 })
 export class LikeService {
 
-  constructor(firebase: FirebaseService) { }
+  constructor(private firebase: FirebaseService) { }
 
-  AddLike(){
+  AddLike(id: number): void {
     const path = sessionStorage.getItem('email') + '/liste/like';
     this.firebase.getDocument('users', path).subscribe((doc) => {
       if (doc) {
         let id = doc.id || [];
         let type = doc.type || [];
-        id.push(this.movie?.id);
+        id.push(id);
         type.push('movie');
         this.firebase.updateDocument('users', path, { id: id, type: type });
       } else {
