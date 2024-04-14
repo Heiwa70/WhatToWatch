@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 import {
   getAuth,
@@ -44,7 +43,6 @@ export class FirebaseService {
     };
 
     this.app = initializeApp(firebaseConfig);
-    this.analytics = getAnalytics(this.app);
 
     this.auth = getAuth(this.app);
 
@@ -161,8 +159,9 @@ export class FirebaseService {
       // Récupérer le token JWT de l'utilisateur
       const idToken = await user.getIdToken();
 
-      // Stocker le token JWT dans le stockage local du navigateur
+      // Stocker le token JWT et l'email dans le stockage local du navigateur
       sessionStorage.setItem('token', idToken);
+      sessionStorage.setItem('email', email); // Evite d'intéragir avec la base de données pour récupérer l'email
       console.log('Token JWT:', idToken);
       console.log(sessionStorage.getItem('token'));
 
@@ -209,6 +208,7 @@ export class FirebaseService {
     signOut(this.auth)
       .then(() => {
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('email');
         this.router.navigate(['/']);
 
         // Sign-out successful.
@@ -223,7 +223,7 @@ export class FirebaseService {
    * @param user - L'objet utilisateur.
    * @returns Les informations de l'utilisateur sous forme d'objet Users.
    */
-  getUser(user: any): Users {
+  getUser(user: Users): Users {
     var modelUser: Users = {
       providerId: user.providerId,
       uid: user.uid,
