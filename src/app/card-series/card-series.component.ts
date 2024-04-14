@@ -43,8 +43,6 @@ export class CardSeriesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("card component init");
-    console.log(this.series);
   }
 
   toggle() {

@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import {
+  WhereFilterOp,
+  getFirestore,
+  where,
+  query,
+  getDocs,
+  collection,
+} from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -19,8 +26,9 @@ import {
   deleteField,
 } from 'firebase/firestore';
 import { Users } from 'src/models/Users';
-import { Observable } from 'rxjs';
+import { Observable, map, from } from 'rxjs';
 import { Router } from '@angular/router';
+import { Liste } from 'src/models/Liste';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +72,7 @@ export class FirebaseService {
   /**
    * Ajoute un document à une collection spécifiée dans la base de données Firestore.
    * @param collection - Le nom de la collection dans laquelle ajouter le document.
-   * @param document - Le nom du document à ajouter.
+   * @param path - Chemin du document.
    * @param data - Les données à enregistrer dans le document.
    */
   async addDocument(collection: string, path: string, data: any) {
@@ -77,16 +85,44 @@ export class FirebaseService {
    * @param document - L'ID du document à récupérer.
    * @returns Les données du document récupéré, ou null si le document n'existe pas.
    */
-  async getDocument(collection: string, document: string) {
-    const docRef = doc(this.db, collection, document);
-    const docSnap = await getDoc(docRef);
+  getDocument(collectionPath: string, docPath: string): Observable<any> {
+    const docRef = doc(this.db, collectionPath, docPath);
 
-    if (docSnap.exists()) {
-      return docSnap.data();
-    } else {
-      console.log('No such document!');
-      return null;
-    }
+    return from(getDoc(docRef)).pipe(
+      map((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          return docSnapshot.data();
+        } else {
+          console.log('No document found!');
+          return null;
+        }
+      })
+    );
+  }
+
+
+ async getListWhere(identifiants: string, liste: string, id: string): Promise<boolean | Liste> {
+  const userDocRef = doc(this.db, 'users', identifiants);
+  const listeCollectionRef = collection(userDocRef, 'liste');
+  const likeDocRef = doc(listeCollectionRef, liste);
+
+  const docSnapshot = await getDoc(likeDocRef);
+  if (docSnapshot.exists()) {
+    const data = docSnapshot.data();
+    const liste: Liste = {
+      id: data['id'],
+      type: data['type']
+    };
+    return liste;
+  } else {
+    console.log('Document does not exist');
+    return false;
+  }
+}
+
+  async updateDocument(collection: string, document: string, data: any) {
+    const docRef = doc(this.db, collection, document);
+    await updateDoc(docRef, data);
   }
 
   /**
@@ -98,18 +134,26 @@ export class FirebaseService {
     await deleteDoc(doc(this.db, collection, document));
   }
 
-  async deleteChamp(collection: string, document: string, champ: string) {
-    const docRef = doc(this.db, collection, document);
-    const docSnap = await getDoc(docRef);
+  async deleteItemList( liste: string, id: number) {
+  const docRef = doc(this.db, 'users', sessionStorage.getItem('email')!, 'liste', liste);
+  const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      await updateDoc(docRef, {
-        champ: deleteField(),
-      });
-    } else {
-      console.log('No such document!');
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    const champId = data?.['id'];
+    const champType = data?.['type'];
+
+    if (champId && champType) {
+      const index = champId.indexOf(id);
+
+      if (index > -1) {
+        champId.splice(index, 1);
+        champType.splice(index, 1);
+        await updateDoc(docRef, { ['id']: champId, ['type']: champType });
+      }
     }
   }
+}
 
   /**
    * Crée un nouvel utilisateur avec l'email et le mot de passe spécifiés.
@@ -244,5 +288,4 @@ export class FirebaseService {
   returnProfile() {
     this.router.navigate(['/Profile']);
   }
-
 }
