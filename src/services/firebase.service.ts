@@ -18,6 +18,7 @@ import {
   onAuthStateChanged,
   updateEmail,
   updatePassword,
+  User,
 } from 'firebase/auth';
 import {
   doc,
@@ -228,7 +229,7 @@ export class FirebaseService {
    * Récupère le token de l'utilisateur actuellement connecté.
    * @returns L'utilisateur actuellement connecté, ou false s'il n'y a pas d'utilisateur connecté.
    */
-  userIsConnected(): Users | Boolean {
+  userIsConnected(): Boolean {
     var token = sessionStorage.getItem('token');
     if (token != null) {
       // Un utilisateur est connecté
@@ -239,7 +240,30 @@ export class FirebaseService {
     }
   }
 
-  modificationApply(): Users | Boolean {
+
+  /**
+   * Récupère l'utilisateur actuellement connecté.
+   * @returns Un Observable qui émet l'utilisateur actuellement connecté ou null s'il est déconnecté.
+   */
+  getCurrentUser(): Observable<User | null> {
+    return new Observable<User | null>((subscriber) => {
+      const auth = getAuth();
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // L'utilisateur est connecté.
+          subscriber.next(user);
+        } else {
+          // L'utilisateur est déconnecté.
+          subscriber.next(null);
+        }
+      }, (error) => subscriber.error(error));
+  
+      // Retourner une fonction de désinscription lors de l'annulation de l'abonnement
+      return unsubscribe;
+    });
+  }
+
+  modificationApply(): Boolean {
     var token = sessionStorage.getItem('token');
     if (token != null) {
       // Une modication est appliquée
@@ -249,6 +273,8 @@ export class FirebaseService {
       return false;
     }
   }
+
+
 
   /**
    * Déconnecte l'utilisateur.
@@ -268,21 +294,6 @@ export class FirebaseService {
       });
   }
 
-  /**
-   * Récupère les informations de l'utilisateur à partir de l'objet utilisateur fourni.
-   * @param user - L'objet utilisateur.
-   * @returns Les informations de l'utilisateur sous forme d'objet Users.
-   */
-  getUser(user: Users): Users {
-    var modelUser: Users = {
-      providerId: user.providerId,
-      uid: user.uid,
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-    };
-    return modelUser;
-  }
 
   updateEmail(newEmail: string) {
   const auth = getAuth();

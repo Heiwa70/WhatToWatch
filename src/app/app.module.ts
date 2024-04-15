@@ -37,6 +37,7 @@ import { PersonneComponent } from './personne/personne.component';
 import { CardPersonneComponent } from './card-personne/card-personne.component';
 import { ListCardPersonneComponent } from './list-card-personne/list-card-personne.component';
 import { TruncatePipe } from './Pipes/biography';
+import { LikeComponent } from './like/like.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { TruncatePipe } from './Pipes/biography';
     CardPersonneComponent,
     ListCardPersonneComponent,
     TruncatePipe,
+    LikeComponent,
   ],
   imports: [
     BrowserModule,

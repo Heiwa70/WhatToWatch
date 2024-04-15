@@ -16,8 +16,6 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
   public errorMessage: string = '';
-  private user: Users = {} as Users;
-
   constructor(private fb: FormBuilder, private fireBase: FirebaseService, private route: Router) { }
 
   ngOnInit(): void {
@@ -35,10 +33,9 @@ export class LoginComponent implements OnInit {
         if (result) {
           // Connexion réussie, naviguer vers la page d'accueil
           var isConnected = this.fireBase.userIsConnected();
-          if (isConnected !== false) {
+          if (isConnected) {
             console.log('User connected : ');
-            this.user = isConnected as Users;
-            console.log(this.user);
+       ;
             this.route.navigate(['/Home']);
           }
           //this.route.navigate(['/Home']);

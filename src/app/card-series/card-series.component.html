@@ -1,5 +1,7 @@
 <div *ngIf="series?.poster_path" class="flex overflow-hidden" (mouseenter)="toggle()" (mouseleave)="toggle()">
-    <div id="imagePrincipale" class="h-[500px] w-[300px] cursor-pointer flex-shrink-0">
+    <div id="imagePrincipale" class="h-[500px] w-[300px] cursor-pointer flex-shrink-0 relative">
+        <app-like [type]="'serie'" [item]="series"></app-like>
+
         <img src="{{'https://image.tmdb.org/t/p/w500'+series?.poster_path}}" class="h-full w-full rounded">
     </div>
     <div class="h-[500px] w-0 flex-grow-0 flex flex-col justify-between bg-slate-800 text-white p-4"

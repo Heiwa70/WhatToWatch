@@ -36,12 +36,16 @@
 .custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(241, 241, 241, 0);
 }
- 
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
   border-radius: 20px; /* Augmente l'arrondi du curseur de défilement */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
+}
+
+.active {
+  color: rgb(4, 121, 255);
 }
