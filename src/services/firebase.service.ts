@@ -86,12 +86,15 @@ export class FirebaseService {
     await setDoc(doc(this.db, collection, path), data);
   }
 
+
   /**
-   * Récupère un document d'une collection spécifiée dans Firestore.
-   * @param collection - Le nom de la collection.
-   * @param document - L'ID du document à récupérer.
-   * @returns Les données du document récupéré, ou null si le document n'existe pas.
-   */
+    * Récupère un document à partir d'une collection spécifiée dans Firestore.
+    * 
+    * @param collectionPath - Le chemin vers la collection dans Firestore.
+    * @param docPath - Le chemin vers le document dans Firestore.
+    * @returns Un Observable qui émet les données du document s'il existe, ou null s'il n'y a pas de document trouvé.
+    */
+ 
   getDocument(collectionPath: string, docPath: string): Observable<any> {
     const docRef = doc(this.db, collectionPath, docPath);
 
@@ -103,6 +106,16 @@ export class FirebaseService {
           console.log('No document found!');
           return null;
         }
+      })
+    );
+  }
+
+  getCollections(collectionPath: string): Observable<any> {
+    const collectionRef = collection(this.db, collectionPath);
+
+    return from(getDocs(collectionRef)).pipe(
+      map((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => doc.data());
       })
     );
   }

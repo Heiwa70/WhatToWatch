@@ -1,0 +1,31 @@
+<div *ngIf="userIsConnected" (click)="openList()"
+    class="absolute flex justify-center content-center select-none right-2 top-12 shadow p-1 rounded-md hover:scale-110 ease-in-out duration-200"
+    style="background-color: rgba(128, 128, 128, 0.5); outline: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+        <path fill-rule="evenodd"
+            d="M2.625 6.75a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0A.75.75 0 0 1 8.25 6h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.625 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 12a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12A.75.75 0 0 1 7.5 12Zm-4.875 5.25a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75Z"
+            clip-rule="evenodd" stroke="white" stroke-width="1" />
+    </svg>
+
+</div>
+<div *ngIf="showDiv" class="z-10 flex justify-center items-center fixed  text-white"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100vh; width: 100vw; -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); background-color: rgba(0, 0, 0, 0.5);">
+    <div
+        class="h-40 w-80 text-xl text-center bg-slate-900 rounded-md shadow-md relative flex justify-center items-center overflow-y-scroll">
+        <h2 class="text-white text-2xl absolute top-2">Ajouter le film à la liste</h2>
+        <ul class="list-none w-full  absolute bottom-0">
+            <li *ngFor="let doc of document" class="hover:bg-blue-500 transition-colors duration-200 ease-in-out">
+                {{ doc }}
+            </li>
+        </ul>
+
+        <button (click)="openList()"
+            class=" p-2 rounded-full bg-slate-700 hover:bg-slate-800 transition-colors duration-200 ease-in-out absolute top-2 right-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd"
+                    d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
+</div>
