@@ -69,7 +69,7 @@ import { TruncatePipe } from './Pipes/biography';
     PersonneComponent,
     CardPersonneComponent,
     ListCardPersonneComponent,
-    TruncatePipe
+    TruncatePipe,
   ],
   imports: [
     BrowserModule,

@@ -48,13 +48,17 @@ export class RegisterComponent implements OnInit {
         console.log('inscription : ' + result);
         if (result) {
           // inscription réussie
-          this.fireBase.addDocument('users', this.userForm.value.email, {
-            email: this.userForm.value.email,
-          });
+          this.fireBase.addDocument(
+            'users',
+            `${this.userForm.value.email}/liste/like`,
+            {
+              id: [],
+              type: [],
+            }
+          );
 
           this.route.navigate(['/Login']);
-        }
-        else {
+        } else {
           // Connexion échouée, mot de passe ou email incorrect
           this.errorMessage =
             'Inscription échouée ! Veuillez vérifier vos identifiants.';
