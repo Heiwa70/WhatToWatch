@@ -1,0 +1,21 @@
+.custom-scrollbar {
+    box-sizing: border-box;
+    margin-right: 5px; /* Déplace la barre de défilement de 5px vers la gauche */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(241, 241, 241, 0);
+}
+ 
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 20px; /* Augmente l'arrondi du curseur de défilement */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}

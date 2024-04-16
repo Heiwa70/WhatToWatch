@@ -8,6 +8,7 @@ import {
 } from '@angular/animations';
 import { FirebaseService } from 'src/services/firebase.service';
 import { TmdbService } from 'src/services/tmdb.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -45,7 +46,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public firebaseService: FirebaseService,
-    private api: TmdbService
+    private api: TmdbService,
+    private router: Router
   ) {}
 
   toggleMenu() {
@@ -80,4 +82,9 @@ export class HeaderComponent implements OnInit {
         break;
     }
   }
+
+  onEnter() {
+    // Naviguer vers une autre page avec le service de routage
+    this.router.navigate(['/search', this.searchValue]);
+}
 }

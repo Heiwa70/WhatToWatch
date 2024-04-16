@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieDetails } from 'src/models/Movie/MovieDetails';
+import { MovieCreditsResponse, MovieCredits } from 'src/models/Movie/MovieCredits';
 import { TmdbService } from 'src/services/tmdb.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Movie } from 'src/models/Movie/Movies';
@@ -14,8 +15,10 @@ export class DetailsComponent implements OnInit {
   idDetails: string | null = '';
   details: MovieDetails = {} as MovieDetails;
   detailsTypeMovie: Movie = {} as Movie;
+  credits: MovieCredits = {} as MovieCredits;
   urlTrailer?: SafeResourceUrl;
   urlIsValide = false;
+  actorGroups: string= {} as string;
 
   site: string = '';
 
@@ -27,15 +30,16 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id === null) {
-        return;
-      }
-      this.idDetails = id;
-      this.urlIsValide = false;
-      this.getMovieDetails(this.idDetails as string);
-      this.getTrailer(this.idDetails as string);
+   this.route.paramMap.subscribe((params) => {
+    const id = params.get('id');
+    if (id === null) {
+      return;
+    }
+    this.idDetails = id;
+    this.urlIsValide = false;
+    this.getMovieDetails(this.idDetails as string);
+    this.getTrailer(this.idDetails as string);
+    this.getCreditsMovie(this.idDetails as string);
     });
   }
 
@@ -47,6 +51,8 @@ export class DetailsComponent implements OnInit {
       });
     }
   }
+
+  
 
   getTrailer(id: string): void {
     if (id !== null) {
@@ -66,5 +72,12 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  
+  getCreditsMovie(id: string): void {
+    if (id !== null) {
+      this.api.getCreditsMovie(id).subscribe((credits) => {
+        this.credits = credits;
+        console.log(credits);
+      });
+    }
+  }
 }

@@ -82,7 +82,7 @@ export class TmdbService {
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
   getPopularMovies(): Observable<MoviesResponse> {
-    this.url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/movie/popular?language=fr-FR';
     return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
   
@@ -100,7 +100,7 @@ export class TmdbService {
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
   getTopRatingMovies(): Observable<MoviesResponse> {
-    this.url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/movie/top_rated?language=fr-FR';
     return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
 
@@ -109,7 +109,7 @@ export class TmdbService {
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
   getUpcomingMovies(): Observable<MoviesResponse> {
-    this.url = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&region='+this.country;
+    this.url = 'https://api.themoviedb.org/3/movie/upcoming?language=fr-FR&region='+this.country;
     return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
 
@@ -118,7 +118,7 @@ export class TmdbService {
     * @returns Un Observable qui émet un tableau d'objets Movie.
     */
   getNowPlayingMovies(): Observable<MoviesResponse> {
-    this.url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&region='+this.country;
+    this.url = 'https://api.themoviedb.org/3/movie/now_playing?language=fr-FR&region='+this.country;
     return this.http.get<MoviesResponse>(this.url, { headers: this.headers });
   }
   
@@ -128,7 +128,7 @@ export class TmdbService {
     * @returns Un Observable qui émet l'objet MoviesTrailer contenant le lien vidéo.
     */
   getVideoLink(id:string): Observable<MoviesTrailer> {
-    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/videos?language=FR';
+    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/videos?language=fr-FR';
     return this.http.get<MoviesTrailer>(this.url, { headers: this.headers });
   }
 
@@ -289,7 +289,7 @@ export class TmdbService {
    * @returns Un Observable qui émet un tableau de genres de séries TV.
    */
   getGenresTv(): Observable<TvGenre[]> {
-    this.url = 'https://api.themoviedb.org/3/genre/tv/list?language=en';
+    this.url = 'https://api.themoviedb.org/3/genre/tv/list?language=fr-FR';
     return this.http.get<TvGenre[]>(this.url, { headers: this.headers });
   }
 
@@ -309,9 +309,9 @@ export class TmdbService {
     * @returns Un Observable qui émet les crédits du film.
     */
   getCreditsMovie(id:string): Observable<MovieCredits> {
-    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/credits';
+    this.url = `https://api.themoviedb.org/3/movie/${id}/credits?language=fr-FR`;
     return this.http.get<MovieCredits>(this.url, { headers: this.headers });
-  }
+}
 
 
   /**
@@ -331,7 +331,7 @@ export class TmdbService {
    * @returns Un Observable contenant les recommandations de films.
    */
   getRecommendationsMovie(id:string): Observable<MoviesRecommendations> {
-    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/recommendations?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/recommendations?language=fr-FR';
     return this.http.get<MoviesRecommendations>(this.url, { headers: this.headers });
   }
 
@@ -342,7 +342,7 @@ export class TmdbService {
    * @returns Un Observable contenant les critiques du film.
    */
   getReviewsMovie(id:string): Observable<MovieReviews> {
-    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/reviews?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/reviews?language=fr-FR';
     return this.http.get<MovieReviews>(this.url, { headers: this.headers });
   }
 
@@ -353,7 +353,7 @@ export class TmdbService {
    * @returns Un Observable contenant les films similaires.
    */
   getSimilarsMovies(id:string): Observable<MoviesSimilars> {
-    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/similar?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/movie/'+id+'/similar?language=fr-FR';
     return this.http.get<MoviesSimilars>(this.url, { headers: this.headers });
   }
 
@@ -373,7 +373,7 @@ export class TmdbService {
    * @returns Un Observable contenant un tableau de PopularPeoples.
    */
   getPopularPeoples(): Observable<PeoplesResponse> {
-    this.url = 'https://api.themoviedb.org/3/person/popular?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/person/popular?language=fr-FR';
     return this.http.get<PeoplesResponse>(this.url, { headers: this.headers });
   }
 
@@ -384,7 +384,7 @@ export class TmdbService {
    * @returns Un Observable contenant les détails de la personne.
    */
   getDetailsPeople(id:string): Observable<Person> {
-    this.url = 'https://api.themoviedb.org/3/person/' + id + '?language=fr';
+    this.url = 'https://api.themoviedb.org/3/person/' + id + '?language=fr-FR';
     return this.http.get<Person>(this.url, { headers: this.headers });
   }
 
@@ -399,7 +399,7 @@ export class TmdbService {
    * @returns Un Observable contenant les crédits combinés de la personne.
    */
   getCombinedCreditsPeople(id:string): Observable<PeopleCombinedCredits> {
-    this.url = 'https://api.themoviedb.org/3/person/'+id+'/combined_credits?language=en-US';
+    this.url = 'https://api.themoviedb.org/3/person/'+id+'/combined_credits?language=fr-FR';
     return this.http.get<PeopleCombinedCredits>(this.url, { headers: this.headers });
   }
 
@@ -432,7 +432,7 @@ export class TmdbService {
    * @returns Un Observable de type SearchCollectionMovies.
    */
   getCollectionMovies(query : string): Observable<SearchCollectionMovies> {
-    this.url = 'https://api.themoviedb.org/3/search/collection?query='+query+'&include_adult=false&language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/search/collection?query='+query+'&include_adult=false&language=fr-FR';
     return this.http.get<SearchCollectionMovies>(this.url, { headers: this.headers });
   }
 
@@ -442,7 +442,7 @@ export class TmdbService {
    * @returns Un Observable contenant les résultats de recherche des séries TV.
    */
   getTvs(query : string): Observable<SearchTv> {
-    this.url = 'https://api.themoviedb.org/3/search/tv?query='+query+'&include_adult=false&language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/search/tv?query='+query+'&include_adult=false&language=fr-FR';
     return this.http.get<SearchTv>(this.url, { headers: this.headers });
   }
 
@@ -453,7 +453,7 @@ export class TmdbService {
    * @returns Un Observable contenant les films tendances.
    */
   getTrendingMovies(timePeriod: 'day' | 'week'): Observable<TrendingMovies> {
-    this.url = `https://api.themoviedb.org/3/trending/movie/${timePeriod}?language=en-US`;
+    this.url = `https://api.themoviedb.org/3/trending/movie/${timePeriod}?language=fr-FR`;
     return this.http.get<TrendingMovies>(this.url, { headers: this.headers });
   }
 
@@ -464,7 +464,7 @@ export class TmdbService {
    * @returns Un Observable contenant les personnes populaires.
    */
   getTrendingPeople(timePeriod: 'day' | 'week'): Observable<TrendingPeople> {
-    this.url = `https://api.themoviedb.org/3/trending/person/${timePeriod}?language=en-US`;
+    this.url = `https://api.themoviedb.org/3/trending/person/${timePeriod}?language=fr-FR`;
     return this.http.get<TrendingPeople>(this.url, { headers: this.headers });
   }
 
@@ -476,7 +476,7 @@ export class TmdbService {
    * @returns Un Observable contenant les émissions de télévision tendances.
    */
   getTrendingTv(timePeriod: 'day' | 'week'): Observable<TvResponse> {
-    this.url = `https://api.themoviedb.org/3/trending/tv/${timePeriod}?language=en-US`;
+    this.url = `https://api.themoviedb.org/3/trending/tv/${timePeriod}?language=fr-FR`;
     return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
@@ -487,7 +487,7 @@ export class TmdbService {
    * @returns Un Observable contenant les séries populaires.
    */
   getPopularTv(): Observable<TvResponse> {
-    this.url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/tv/popular?language=fr-FR';
     return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
@@ -497,7 +497,7 @@ export class TmdbService {
    * @returns Un Observable contenant les séries les mieux notées.
    */
   getTopRatingTv(): Observable<TvResponse> {
-    this.url = 'https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/tv/top_rated?language=fr-FR';
     return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
@@ -506,7 +506,7 @@ export class TmdbService {
     * @returns Un Observable qui émet un objet TvResponse contenant la liste des séries télévisées.
     */
   getAiringTodayTv(): Observable<TvResponse> {
-    this.url = 'https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/tv/airing_today?language=fr-FR';
     return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
@@ -515,7 +515,7 @@ export class TmdbService {
     * @returns Un Observable qui émet un objet TvResponse contenant la liste des séries TV.
     */
   getOnTheAirTv(): Observable<TvResponse> {
-    this.url = 'https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/tv/on_the_air?language=fr-FR';
     return this.http.get<TvResponse>(this.url, { headers: this.headers });
   }
 
@@ -526,7 +526,7 @@ export class TmdbService {
    * @returns Un Observable contenant les détails de la série TV.
    */
   getDetailsTv(id:string): Observable<TvDetails> {
-    this.url = 'https://api.themoviedb.org/3/tv/'+id+'?language=en-US';
+    this.url = 'https://api.themoviedb.org/3/tv/'+id+'?language=fr-FR';
     return this.http.get<TvDetails>(this.url, { headers: this.headers });
   }
 
@@ -536,7 +536,7 @@ export class TmdbService {
    * @returns Un Observable contenant les crédits agrégés de la série TV.
    */
   getTvAggregateCredits(id:string): Observable<TvAggregateCredits> {
-    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/aggregate_credits?language=en-US';
+    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/aggregate_credits?language=fr-FR';
     return this.http.get<TvAggregateCredits>(this.url, { headers: this.headers });
   }
 
@@ -580,7 +580,7 @@ export class TmdbService {
    * @returns Un Observable contenant les recommandations TV.
    */
   getTvRecommendations(id:string): Observable<TvRecommendations> {
-    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/recommendations?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/recommendations?language=fr-FR';
     return this.http.get<TvRecommendations>(this.url, { headers: this.headers });
   }
 
@@ -591,7 +591,7 @@ export class TmdbService {
    * @returns Un Observable contenant les critiques de la série TV.
    */
   getTvReviews(id:string): Observable<TvReviews> {
-    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/reviews?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/reviews?language=fr-FR';
     return this.http.get<TvReviews>(this.url, { headers: this.headers });
   }
 
@@ -602,7 +602,7 @@ export class TmdbService {
    * @returns Un Observable contenant les séries TV similaires.
    */
   getTvSimilars(id:string): Observable<TvSimilars> {
-    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/similar?language=en-US&page=1';
+    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/similar?language=fr-FR';
     return this.http.get<TvSimilars>(this.url, { headers: this.headers });
   }
 
@@ -623,7 +623,7 @@ export class TmdbService {
     * @returns Un Observable qui émet les informations vidéo de la série TV.
     */
   getVideoTv(id:string): Observable<TvVideo> {
-    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/videos?language=FR';
+    this.url = 'https://api.themoviedb.org/3/tv/'+id+'/videos?language=fr-FR';
     return this.http.get<TvVideo>(this.url, { headers: this.headers });
   }
 

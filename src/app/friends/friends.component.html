@@ -1,0 +1,41 @@
+<div (click)="openList()"
+    class="fixed bottom-4 right-4 flex justify-center content-center select-none shadow p-4 rounded-full hover:scale-110 ease-in-out duration-200 cursor-pointer rounded-fil"
+    [ngClass]="{'transform transition-all duration-500 ease-in-out': showDiv, 'scale-0 translate-y-64': showDiv}"
+    style="background-color: rgba(128, 128, 128, 0.5); outline: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+        <path
+            d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+    </svg>
+</div>
+<div *ngIf="showDiv" class="z-20  0 flex justify-center items-center fixed text-white bg-transparent"
+    style="bottom: 2%; right: 2%; height: auto; width: auto;">
+    <div
+        class="mt-5 h-96 w-96 text-xl text-center bg-slate-900 rounded-md shadow-md relative flex flex-col items-center p-4">
+        <button (click)="openList()"
+            class="absolute mt-1 mr-1 top-1 right-1 p-2 rounded-full bg-slate-700 hover:bg-slate-800 transition-colors duration-200 ease-in-out">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd"
+                    d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+        <div class="flex flex-col items-center">
+            <h1 class="text-2xl font-bold">Ajouter un amis</h1>
+            <div class="flex flex-col items-center">
+                <input class="pl-10 w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" [(ngModel)]="searchValue" (keyup)="searchFriend()"
+                    placeholder="Rechercher un ami">
+                <ul>
+                    <li *ngFor="let friend of filteredFriends">
+                        {{ friend }}
+                        <button (click)="addFriend()" class="z-30">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,10 +21,118 @@
         <div class="w-2/4  p-4">
             <h2 class="text-white text-center mt-2">{{details.name}}</h2>
             <p class="text-white text-justify">{{details.overview}}</p>
+            <br />
+            <br />
             <p title="{{details.vote_count}}"
                 class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
                 <i class="fas fa-star text-yellow-500 mr-2"></i> {{details.vote_average}}
             </p>
+            <br />
+            <p title="{{details.first_air_date}}"
+                class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+                <i class="fas fa-calendar-alt text-green-500 mr-2"></i> {{details.first_air_date}}
+            </p>
+            <br />
+            <p title="{{details.episode_run_time}}"
+                class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+                <i class="fas fa-clock text-red-500 mr-2"></i> {{details.episode_run_time}} minutes
+            </p>
+            <br />
+            <div title="{{details.genres}}"
+                class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+                <i class="fas fa-film text-purple-500 mr-2"></i>
+                <span *ngFor="let genre of details.genres; let isLast=last">
+                    {{ genre.name }}<ng-container *ngIf="!isLast">,&nbsp;</ng-container>
+                </span>
+            </div>
         </div>
+    </div>
+</div>
+
+
+<div class="mt-5 w-full flex justify-center bg-slate-900 rounded">
+    <div class="info-container rounded">
+        <table class="info-table rounded">
+            <tr>
+                <th class="info-title">Date de sortie:</th>
+                <td class="text-white info-content">{{details.first_air_date}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Durée:</th>
+                <td class="text-white info-content">{{details.episode_run_time}} minutes</td>
+            </tr>
+            <tr>
+                <th class="info-title">Budget:</th>
+                <td class="text-white info-content">{{details.created_by}} $</td>
+            </tr>
+            <tr>
+                <th class="info-title">Revenue:</th>
+                <td class="text-white info-content">{{details.genres}} $</td>
+            </tr>
+            <tr>
+                <th class="info-title">Status:</th>
+                <td class="text-white info-content">{{details.status}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Popularité:</th>
+                <td class="text-white info-content">{{details.popularity}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Langue:</th>
+                <td class="text-white info-content">{{details.original_language}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Genre:</th>
+                <td class="text-white info-content">{{details.genres[0].name}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Production:</th>
+                <td class="text-white info-content">{{details.production_companies[0].name}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Pays:</th>
+                <td class="text-white info-content">{{details.production_countries[0].name}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Note:</th>
+                <td class="text-white info-content">{{details.vote_average}}/10</td>
+            </tr>
+            <tr>
+                <th class="info-title">Nombre de votes:</th>
+                <td class="text-white info-content">{{details.vote_count}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Nombre de saisons:</th>
+                <td class="text-white info-content">{{details.number_of_seasons}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Nombre d'épisodes:</th>
+                <td class="text-white info-content">{{details.number_of_episodes}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Dernière diffusion:</th>
+                <td class="text-white info-content">{{details.last_air_date}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Prochaine diffusion:</th>
+                <td class="text-white info-content">{{details.next_episode_to_air}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Créé par:</th>
+                <td class="text-white info-content">{{details.created_by[0].name}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Réseaux:</th>
+                <td class="text-white info-content">{{details.networks[0].name}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Type:</th>
+                <td class="text-white info-content">{{details.type}}</td>
+            </tr>
+            <tr>
+                <th class="info-title">Homepage:</th>
+                <td class="text-white info-content">{{details.homepage}}</td>
+            </tr>
+        </table>
     </div>
 </div>

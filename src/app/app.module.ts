@@ -39,6 +39,9 @@ import { ListCardPersonneComponent } from './list-card-personne/list-card-person
 import { TruncatePipe } from './Pipes/biography';
 import { LikeComponent } from './like/like.component';
 import { BtnListComponent } from './btn-list/btn-list.component';
+import { SearchComponent } from './search/search.component';
+import { FriendsComponent } from './friends/friends.component';
+import { AddFriendsComponent } from './add-friends/add-friends.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +77,9 @@ import { BtnListComponent } from './btn-list/btn-list.component';
     TruncatePipe,
     LikeComponent,
     BtnListComponent,
+    SearchComponent,
+    FriendsComponent,
+    AddFriendsComponent
   ],
   imports: [
     BrowserModule,
