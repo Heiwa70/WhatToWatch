@@ -67,7 +67,6 @@ export class DetailsComponent implements OnInit {
           this.urlTrailer = this.sanitizer.bypassSecurityTrustResourceUrl('');
           console.log('No trailer found');
         }
-        console.log(this.urlTrailer);
       });
     }
   }
@@ -76,7 +75,6 @@ export class DetailsComponent implements OnInit {
     if (id !== null) {
       this.api.getCreditsMovie(id).subscribe((credits) => {
         this.credits = credits;
-        console.log(credits);
       });
     }
   }

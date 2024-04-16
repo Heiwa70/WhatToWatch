@@ -38,7 +38,6 @@ export class BtnListComponent implements OnInit {
             this.document.push(doc.document);
           }
         });
-      console.log(this.document);
 
       });
   }
@@ -70,7 +69,6 @@ export class BtnListComponent implements OnInit {
             type: typeArray,
           })
           .then(() => {
-            console.log('Document successfully updated!');
             this.openList();
             this.Setup();
           });
