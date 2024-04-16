@@ -109,16 +109,6 @@ export class FirebaseService {
       })
     );
   }
-  
-  getCollections(collectionPath: string): Observable<any> {
-    const collectionRef = collection(this.db, collectionPath);
-
-    return from(getDocs(collectionRef)).pipe(
-      map((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => doc.data());
-      })
-    );
-  }
 
   getCollections(collectionPath: string, field?: string, operator?: string, value?: number): Observable<any> {
     const collectionRef = collection(this.db, collectionPath);
