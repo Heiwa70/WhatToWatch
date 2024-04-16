@@ -86,15 +86,14 @@ export class FirebaseService {
     await setDoc(doc(this.db, collection, path), data);
   }
 
-
   /**
-    * Récupère un document à partir d'une collection spécifiée dans Firestore.
-    * 
-    * @param collectionPath - Le chemin vers la collection dans Firestore.
-    * @param docPath - Le chemin vers le document dans Firestore.
-    * @returns Un Observable qui émet les données du document s'il existe, ou null s'il n'y a pas de document trouvé.
-    */
- 
+   * Récupère un document à partir d'une collection spécifiée dans Firestore.
+   *
+   * @param collectionPath - Le chemin vers la collection dans Firestore.
+   * @param docPath - Le chemin vers le document dans Firestore.
+   * @returns Un Observable qui émet les données du document s'il existe, ou null s'il n'y a pas de document trouvé.
+   */
+
   getDocument(collectionPath: string, docPath: string): Observable<any> {
     const docRef = doc(this.db, collectionPath, docPath);
 
@@ -110,11 +109,20 @@ export class FirebaseService {
     );
   }
 
-  getCollections(collectionPath: string, field?: string, operator?: string, value?: number): Observable<any> {
+  getCollections(
+    collectionPath: string,
+    field?: string,
+    operator?: string,
+    value?: number
+  ): Observable<any> {
     const collectionRef = collection(this.db, collectionPath);
 
-    if(field && operator && value) {
-      return from(getDocs(query(collectionRef, where(field, operator as WhereFilterOp, value)))).pipe(
+    if (field && operator && value) {
+      return from(
+        getDocs(
+          query(collectionRef, where(field, operator as WhereFilterOp, value))
+        )
+      ).pipe(
         map((querySnapshot) => {
           return querySnapshot.docs.map((doc) => doc.data());
         })
@@ -128,32 +136,35 @@ export class FirebaseService {
     );
   }
 
+  async getListWhere(
+    identifiants: string,
+    liste: string,
+    id: string
+  ): Promise<boolean | Liste> {
+    const userDocRef = doc(this.db, 'users', identifiants);
+    const listeCollectionRef = collection(userDocRef, 'liste');
+    const likeDocRef = doc(listeCollectionRef, liste);
 
- async getListWhere(identifiants: string, liste: string, id: string): Promise<boolean | Liste> {
-  const userDocRef = doc(this.db, 'users', identifiants);
-  const listeCollectionRef = collection(userDocRef, 'liste');
-  const likeDocRef = doc(listeCollectionRef, liste);
-
-  const docSnapshot = await getDoc(likeDocRef);
-  if (docSnapshot.exists()) {
-    const data = docSnapshot.data();
-    const liste: Liste = {
-      id: data['id'],
-      type: data['type']
-    };
-    return liste;
-  } else {
-    console.log('Document does not exist');
-    return false;
+    const docSnapshot = await getDoc(likeDocRef);
+    if (docSnapshot.exists()) {
+      const data = docSnapshot.data();
+      const liste: Liste = {
+        id: data['id'],
+        type: data['type'],
+      };
+      return liste;
+    } else {
+      console.log('Document does not exist');
+      return false;
+    }
   }
-}
 
   /**
-    * Met à jour un document dans une collection spécifiée avec les données fournies.
-    * @param collection - Le nom de la collection dans laquelle se trouve le document.
-    * @param document - Le nom du document à mettre à jour.
-    * @param data - Les nouvelles données à utiliser pour mettre à jour le document.
-    */
+   * Met à jour un document dans une collection spécifiée avec les données fournies.
+   * @param collection - Le nom de la collection dans laquelle se trouve le document.
+   * @param document - Le nom du document à mettre à jour.
+   * @param data - Les nouvelles données à utiliser pour mettre à jour le document.
+   */
   async updateDocument(collection: string, document: string, data: any) {
     const docRef = doc(this.db, collection, document);
     await updateDoc(docRef, data);
@@ -168,33 +179,38 @@ export class FirebaseService {
     await deleteDoc(doc(this.db, collection, document));
   }
 
-  
   /**
    * Supprime un élément de la liste spécifiée.
-   * 
+   *
    * @param liste - Le nom de la liste.
    * @param id - L'identifiant de l'élément à supprimer.
    */
-  async deleteItemList( liste: string, id: number) {
-  const docRef = doc(this.db, 'users', sessionStorage.getItem('email')!, 'liste', liste);
-  const docSnap = await getDoc(docRef);
+  async deleteItemList(liste: string, id: number) {
+    const docRef = doc(
+      this.db,
+      'users',
+      sessionStorage.getItem('email')!,
+      'liste',
+      liste
+    );
+    const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) {
-    const data = docSnap.data();
-    const champId = data?.['id'];
-    const champType = data?.['type'];
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const champId = data?.['id'];
+      const champType = data?.['type'];
 
-    if (champId && champType) {
-      const index = champId.indexOf(id);
+      if (champId && champType) {
+        const index = champId.indexOf(id);
 
-      if (index > -1) {
-        champId.splice(index, 1);
-        champType.splice(index, 1);
-        await updateDoc(docRef, { ['id']: champId, ['type']: champType });
+        if (index > -1) {
+          champId.splice(index, 1);
+          champType.splice(index, 1);
+          await updateDoc(docRef, { ['id']: champId, ['type']: champType });
+        }
       }
     }
   }
-}
 
   /**
    * Crée un nouvel utilisateur avec l'email et le mot de passe spécifiés.
@@ -274,7 +290,6 @@ export class FirebaseService {
     }
   }
 
-
   /**
    * Récupère l'utilisateur actuellement connecté.
    * @returns Un Observable qui émet l'utilisateur actuellement connecté ou null s'il est déconnecté.
@@ -282,16 +297,20 @@ export class FirebaseService {
   getCurrentUser(): Observable<User | null> {
     return new Observable<User | null>((subscriber) => {
       const auth = getAuth();
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // L'utilisateur est connecté.
-          subscriber.next(user);
-        } else {
-          // L'utilisateur est déconnecté.
-          subscriber.next(null);
-        }
-      }, (error) => subscriber.error(error));
-  
+      const unsubscribe = onAuthStateChanged(
+        auth,
+        (user) => {
+          if (user) {
+            // L'utilisateur est connecté.
+            subscriber.next(user);
+          } else {
+            // L'utilisateur est déconnecté.
+            subscriber.next(null);
+          }
+        },
+        (error) => subscriber.error(error)
+      );
+
       // Retourner une fonction de désinscription lors de l'annulation de l'abonnement
       return unsubscribe;
     });
@@ -308,8 +327,6 @@ export class FirebaseService {
     }
   }
 
-
-
   /**
    * Déconnecte l'utilisateur.
    * @returns {any} Une promesse qui se résout lorsque l'utilisateur est déconnecté avec succès.
@@ -319,6 +336,9 @@ export class FirebaseService {
       .then(() => {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('email');
+
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['/']);
 
         // Sign-out successful.
@@ -328,45 +348,47 @@ export class FirebaseService {
       });
   }
 
-
   updateEmail(newEmail: string) {
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      updateEmail(user, newEmail).then(() => {
-        console.log('Email updated');
-        sessionStorage.setItem('email', newEmail);
-        this.router.navigate(['/Profile']);
-      }).catch((error: Error) => {
-        console.error(error);
-      });
-    } else {
-      console.error('No user is signed in');
-    }
-  });
-}
-
-updatePassword(password: string, confirmPassword: string) {
-
-  if (password !== confirmPassword) {
-    console.error('Password and confirm password do not match');
-    return;
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        updateEmail(user, newEmail)
+          .then(() => {
+            console.log('Email updated');
+            sessionStorage.setItem('email', newEmail);
+            this.router.navigate(['/Profile']);
+          })
+          .catch((error: Error) => {
+            console.error(error);
+          });
+      } else {
+        console.error('No user is signed in');
+      }
+    });
   }
 
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      updatePassword(user, password).then(() => {
-        console.log('Password updated');
-        this.router.navigate(['/Profile']);
-      }).catch((error: Error) => {
-        console.error(error);
-      });
-    } else {
-      console.error('No user is signed in');
+  updatePassword(password: string, confirmPassword: string) {
+    if (password !== confirmPassword) {
+      console.error('Password and confirm password do not match');
+      return;
     }
-  });
-}
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        updatePassword(user, password)
+          .then(() => {
+            console.log('Password updated');
+            this.router.navigate(['/Profile']);
+          })
+          .catch((error: Error) => {
+            console.error(error);
+          });
+      } else {
+        console.error('No user is signed in');
+      }
+    });
+  }
 
   /**
    * Redirige l'utilisateur vers la page d'accueil.
