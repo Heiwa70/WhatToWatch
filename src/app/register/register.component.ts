@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
             'users',
             `${this.userForm.value.email}/liste/like`,
             {
+              document: 'like',
               id: [],
               type: [],
             }
