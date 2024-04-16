@@ -1,8 +1,6 @@
 <app-header></app-header>
 
-<br>
-
-<div class="flex justify-between">
+<div class="flex justify-between mt-4 mb-4">
     <app-menu-verticale (title)="handleTitle($event)" (liste)="handleSelectedDocument($event)"
         class="menu"></app-menu-verticale>
     <h2 class="text-white w-max whitespace-nowrap"> {{title | uppercase}} </h2>
@@ -17,8 +15,10 @@
                         clip-rule="evenodd" />
                 </svg>
             </button>
-            <img [routerLink]="['/Details/' + path[i] + '/', item.id]" class="poster"
+            <img [routerLink]="['/Details/' + path[i] + '/', item.id]" class="poster rounded"
                 [src]="'https://image.tmdb.org/t/p/w500'+item.poster_path">
         </a>
     </div>
 </div>
+
+<app-footer></app-footer>

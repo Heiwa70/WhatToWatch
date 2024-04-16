@@ -18,7 +18,7 @@
         <div class="w-3/4  flex justify-center p-4">
             <img [src]="'https://image.tmdb.org/t/p/w500' + details.poster_path" alt="" srcset="">
         </div>
-        <div class="w-2/4  p-4">
+        <div class="w-2/4  p-4 mt-10">
             <h2 class="text-white text-center mt-2">{{details.name}}</h2>
             <p class="text-white text-justify">{{details.overview}}</p>
             <br />
@@ -50,9 +50,9 @@
 </div>
 
 
-<div class="mt-5 w-full flex justify-center bg-slate-900 rounded">
+<div class="mt-5 mb-5 w-full flex justify-center bg-slate-900 rounded">
     <div class="info-container rounded">
-        <table class="info-table rounded">
+        <table class="info-table rounded mb-5">
             <tr>
                 <th class="info-title">Date de sortie:</th>
                 <td class="text-white info-content">{{details.first_air_date}}</td>
@@ -136,3 +136,5 @@
         </table>
     </div>
 </div>
+
+<app-footer></app-footer>
