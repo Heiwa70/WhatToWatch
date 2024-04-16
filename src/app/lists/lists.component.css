@@ -1,27 +1,58 @@
 .poster-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px; /* ajoute une marge entre les rangées et les colonnes */
-    
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; /* ajoute une marge entre les rangées et les colonnes */
+  position: relative;
+  right: 50px;
 }
 
 .poster {
-    width: 80%; /* réduit la taille des affiches */
-    max-width: 300px; /* limite la taille maximale des affiches */
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+  width: 85%; /* réduit la taille des affiches */
+  max-width: 300px; /* limite la taille maximale des affiches */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
 .poster:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 @media (max-width: 600px) {
-    .poster-grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
+  .poster-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .menu {
-    margin-right: 20px; /* change this value to the amount of space you want */
+  margin-right: 20px; /* change this value to the amount of space you want */
+}
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-button:hover {
+  transform: scale(1.1);
+}
+
+.delete-button:active {
+  animation: clickAnimation 0.3s;
+}
+
+.delete-button i {
+  margin-right: 5px;
+}
+
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

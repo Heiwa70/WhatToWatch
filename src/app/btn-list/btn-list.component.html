@@ -1,5 +1,5 @@
 <div *ngIf="userIsConnected" (click)="openList()"
-    class="absolute flex justify-center content-center select-none right-2 top-12 shadow p-1 rounded-md hover:scale-110 ease-in-out duration-200"
+    class="absolute cursor-pointer flex justify-center content-center select-none right-2 top-12 shadow p-1 rounded-md hover:scale-110 ease-in-out duration-200"
     style="background-color: rgba(128, 128, 128, 0.5); outline: none;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
         <path fill-rule="evenodd"
@@ -8,24 +8,27 @@
     </svg>
 
 </div>
-<div *ngIf="showDiv" class="z-10 flex justify-center items-center fixed  text-white"
-    style="top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100vh; width: 100vw; -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); background-color: rgba(0, 0, 0, 0.5);">
-    <div
-        class="h-40 w-80 text-xl text-center bg-slate-900 rounded-md shadow-md relative flex justify-center items-center overflow-y-scroll">
-        <h2 class="text-white text-2xl absolute top-2">Ajouter le film à la liste</h2>
-        <ul class="list-none w-full  absolute bottom-0">
-            <li *ngFor="let doc of document" class="hover:bg-blue-500 transition-colors duration-200 ease-in-out">
-                {{ doc }}
-            </li>
-        </ul>
+<div *ngIf="showDiv"
+    class="z-10 flex justify-center items-center fixed text-white bg-black bg-opacity-50 backdrop-blur-md"
+    style="top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100vh; width: 100vw;">
 
+    <div
+        class="mt-5 h-64 w-80 text-xl text-center bg-slate-900 rounded-md shadow-md relative flex flex-col items-center p-4">
         <button (click)="openList()"
-            class=" p-2 rounded-full bg-slate-700 hover:bg-slate-800 transition-colors duration-200 ease-in-out absolute top-2 right-2">
+            class="absolute mt-1 mr-1 top-1 right-1 p-2 rounded-full bg-slate-700 hover:bg-slate-800 transition-colors duration-200 ease-in-out">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd"
                     d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
                     clip-rule="evenodd" />
             </svg>
         </button>
+
+        <h2 class="text-white text-2xl mb-4">Ajouter le film à la liste</h2>
+        <ul class=" mr-3 list-none w-full overflow-y-scroll h-full">
+            <li (click)="addItemToList(doc)" *ngFor="let doc of document"
+                class="mr-4 hover:bg-slate-700 rounded cursor-pointer transition-colors duration-200 ease-in-out py-2">
+                {{ doc }}
+            </li>
+        </ul>
     </div>
 </div>

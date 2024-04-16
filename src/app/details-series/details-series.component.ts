@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { TvDetails } from 'src/models/Tv/TvDetails';
 import { TmdbService } from 'src/services/tmdb.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Tv } from 'src/models/Tv/Tv';
 
 @Component({
   selector: 'app-details-series',
@@ -12,6 +13,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class DetailsSeriesComponent implements OnInit {
   idDetails: string = '';
   details: TvDetails = {} as TvDetails;
+  detailsTypeTv: Tv = {} as Tv;
   urlTrailer?: SafeResourceUrl;
   urlIsValide = false;
   site: string = '';
@@ -35,9 +37,12 @@ export class DetailsSeriesComponent implements OnInit {
     });
   }
 
+ 
+
   getDetailsTv(id: string): void {
     this.api.getDetailsTv(id).subscribe((tv) => {
       this.details = tv;
+      this.detailsTypeTv = tv as Tv;
       console.log(this.details);
     });
   }

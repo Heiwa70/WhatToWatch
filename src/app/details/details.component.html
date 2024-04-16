@@ -1,6 +1,5 @@
 <app-header></app-header>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 <div class="video-container w-full flex justify-center  mt-5">
     <iframe [style.display]="urlIsValide === false ? 'none' : 'flex'" class=" rounded" width="1000px" height="500px"
         [src]="urlTrailer" title="YouTube video player" frameborder="0"
@@ -8,8 +7,13 @@
         allowfullscreen></iframe>
 </div>
 
-<div class="mt-5 w-full flex justify-center bg-slate-900">
-    <div class="w-[1000px] flex ">
+<div class="mt-5 w-full flex justify-center bg-slate-900 relative">
+
+    <div class="w-[1000px] flex relative ">
+        <app-like [type]="'movie'" [item]="details"></app-like>
+        <app-btn-list [item]="details" [type]="'movie'"></app-btn-list>
+
+
         <div class="w-3/4  flex justify-center p-4">
             <img [src]="'https://image.tmdb.org/t/p/w500' + details.poster_path" alt="" srcset="">
         </div>

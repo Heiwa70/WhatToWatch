@@ -8,9 +8,9 @@ export interface TvResponse {
 export interface Tv {
     adult: boolean;
     backdrop_path: string;
-    genre_ids: number[];
+    genre_ids?: number[];
     id: number;
-    original_country: string[];
+    original_country?: string[];
     original_language: string;
     original_name: string;
     overview: string;

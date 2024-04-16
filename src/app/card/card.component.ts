@@ -72,4 +72,8 @@ ngOnInit(): void {
     this.isOpen = !this.isOpen;
   }
 
+  onListMenuOpen(open:boolean){
+    this.isOpen = open;
+  }
+
 }

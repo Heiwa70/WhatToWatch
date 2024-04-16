@@ -2,7 +2,7 @@
     <div id="imagePrincipale" class="h-[500px] w-[300px] cursor-pointer flex-shrink-0 relative">
 
         <app-like [type]="'movie'" [item]="movie"></app-like>
-        <app-btn-list [item]="movie"></app-btn-list>
+        <app-btn-list (listMenuOpen)="onListMenuOpen($event)" [item]="movie" [type]="'movie'"></app-btn-list>
 
 
         <img src="{{'https://image.tmdb.org/t/p/w500'+movie?.poster_path}}" class="h-full w-full rounded">

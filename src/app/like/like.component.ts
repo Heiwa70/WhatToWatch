@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { User } from 'firebase/auth';
 import { Liste } from 'src/models/Liste';
 import { Movie } from 'src/models/Movie/Movies';
@@ -22,13 +22,17 @@ export class LikeComponent implements OnInit {
     this.userIsConnected = this.firebase.userIsConnected();
     this.updateListe();
   }
+  ngOnChanges(changes: SimpleChanges): void {
 
-  updateListe() {
+  }
+
+updateListe() {
+  if (this.item) {
     this.firebase
       .getListWhere(
         sessionStorage.getItem('email')!,
         'like',
-        this.item!.id.toString()
+        this.item.id.toString()
       )
       .then((doc: boolean | Liste) => {
         let liste: Liste = doc as Liste;
@@ -36,10 +40,10 @@ export class LikeComponent implements OnInit {
         if (liste.id.includes(this.item!.id)) {
           this.heartClicked = true;
         } else {
-          console.log(false);
         }
       });
   }
+}
 
   heartToggle() {
     this.heartClicked = !this.heartClicked;
@@ -54,8 +58,6 @@ export class LikeComponent implements OnInit {
           this.firebase
             .updateDocument('users', path, { id: id, type: type })
             .then(() => {
-              console.log('Document successfully updated!');
-              this.updateListe();
             });
         } else {
           console.log('No such document!');
@@ -63,8 +65,6 @@ export class LikeComponent implements OnInit {
       });
     } else {
       this.firebase.deleteItemList('like', this.item!.id).then(() => {
-        console.log('Document successfully deleted!');
-        this.updateListe();
       });
     }
   }

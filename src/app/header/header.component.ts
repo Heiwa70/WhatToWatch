@@ -53,7 +53,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onValueChange() {
-    console.log('Value has changed:', this.selectedValue);
     this.onSearchInput(); // Update search results based on new value
   }
 
@@ -65,24 +64,18 @@ export class HeaderComponent implements OnInit {
   onSearchInput() {
     switch (this.selectedValue) {
       case 'film':
-        console.log('film');
         this.api.getMovies(this.searchValue).subscribe((response) => {
           this.searchResults = response.results;
-          console.log('Search results:', this.searchResults);
         });
         break;
       case 'tv':
-        console.log('tv');
         this.api.getTvs(this.searchValue).subscribe((response) => {
           this.searchResults = response.results;
-          console.log('Search results:', this.searchResults);
         });
         break;
       case 'people':
-        console.log('people');
         this.api.getPeopleMovies(this.searchValue).subscribe((response) => {
           this.searchResults = response.results;
-          console.log('Search results:', this.searchResults);
         });
         break;
     }

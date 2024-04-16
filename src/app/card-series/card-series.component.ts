@@ -48,5 +48,8 @@ export class CardSeriesComponent implements OnInit {
   toggle() {
     this.isOpen = !this.isOpen;
   }
+  onListMenuOpen(open:boolean){
+    this.isOpen = open;
+  }
 
 }

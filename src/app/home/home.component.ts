@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
       }
     );
     
-    console.log("Connexion : "+this.fireBase.userIsConnected());
   }
 
   

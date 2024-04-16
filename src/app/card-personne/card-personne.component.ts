@@ -47,8 +47,6 @@ export class CardPersonneComponent implements OnInit {
   constructor(private api: TmdbService) { }
 
   ngOnInit(): void {
-    console.log("card component init");
-    console.log(this.personne);
 
     this.api.getDetailsPeople(this.personne?.id.toString() as string).subscribe(
       (data: Person) => {

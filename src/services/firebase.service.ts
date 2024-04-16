@@ -110,8 +110,16 @@ export class FirebaseService {
     );
   }
 
-  getCollections(collectionPath: string): Observable<any> {
+  getCollections(collectionPath: string, field?: string, operator?: string, value?: number): Observable<any> {
     const collectionRef = collection(this.db, collectionPath);
+
+    if(field && operator && value) {
+      return from(getDocs(query(collectionRef, where(field, operator as WhereFilterOp, value)))).pipe(
+        map((querySnapshot) => {
+          return querySnapshot.docs.map((doc) => doc.data());
+        })
+      );
+    }
 
     return from(getDocs(collectionRef)).pipe(
       map((querySnapshot) => {
@@ -140,6 +148,12 @@ export class FirebaseService {
   }
 }
 
+  /**
+    * Met à jour un document dans une collection spécifiée avec les données fournies.
+    * @param collection - Le nom de la collection dans laquelle se trouve le document.
+    * @param document - Le nom du document à mettre à jour.
+    * @param data - Les nouvelles données à utiliser pour mettre à jour le document.
+    */
   async updateDocument(collection: string, document: string, data: any) {
     const docRef = doc(this.db, collection, document);
     await updateDoc(docRef, data);
@@ -154,6 +168,13 @@ export class FirebaseService {
     await deleteDoc(doc(this.db, collection, document));
   }
 
+  
+  /**
+   * Supprime un élément de la liste spécifiée.
+   * 
+   * @param liste - Le nom de la liste.
+   * @param id - L'identifiant de l'élément à supprimer.
+   */
   async deleteItemList( liste: string, id: number) {
   const docRef = doc(this.db, 'users', sessionStorage.getItem('email')!, 'liste', liste);
   const docSnap = await getDoc(docRef);

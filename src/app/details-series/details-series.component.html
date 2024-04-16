@@ -10,7 +10,11 @@
 </div>
 
 <div class="mt-5 w-full flex justify-center bg-slate-900">
-    <div class="w-[1000px] flex ">
+    <div class="w-[1000px] flex relative ">
+        <app-like [type]="'serie'" [item]="details"></app-like>
+        <app-btn-list [item]="details" [type]="'serie'"></app-btn-list>
+
+
         <div class="w-3/4  flex justify-center p-4">
             <img [src]="'https://image.tmdb.org/t/p/w500' + details.poster_path" alt="" srcset="">
         </div>
