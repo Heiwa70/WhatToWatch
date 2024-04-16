@@ -19,6 +19,7 @@ import { NewListComponent } from './new-list/new-list.component';
 import { FilmsComponent } from './films/films.component';
 import { SeriesComponent } from './series/series.component';
 import { PersonneComponent } from './personne/personne.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   { path: 'Home', component: HomeComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'Films', component: FilmsComponent},
   { path: 'Series', component: SeriesComponent},
   { path: 'Personne', component: PersonneComponent},
+  { path: 'search/:searchValue', component: SearchComponent},
   { path: '', redirectTo: '/Home', pathMatch: 'full' }
 ];
 

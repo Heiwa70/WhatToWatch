@@ -3,6 +3,7 @@ import { TvDetails } from 'src/models/Tv/TvDetails';
 import { TmdbService } from 'src/services/tmdb.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-details-series',
@@ -19,10 +20,12 @@ export class DetailsSeriesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: TmdbService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0]);
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id === null) {

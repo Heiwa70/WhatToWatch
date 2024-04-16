@@ -13,5 +13,11 @@ export interface MovieCredits {
         character: string;
         credit_id: string;
         order: number;
+        job: string;
     }[];
+}
+
+export interface MovieCreditsResponse {
+    id: number;
+    cast: MovieCredits[];
 }

@@ -15,6 +15,8 @@ export class DetailsActorsComponent implements OnInit {
   details: Person = {} as Person;
   urlTrailer?: SafeResourceUrl;
   site: string = '';
+  popularPeoples: Person[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,7 +24,11 @@ export class DetailsActorsComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {}
 
- ngOnInit(): void {
+  ngOnInit(): void {
+  this.api.getPopularPeoples().subscribe((response) => {
+    this.popularPeoples = response.results; // Utilisez popularPeoples au lieu de popularPeople
+  });
+
   this.route.paramMap.subscribe(params => {
     const id = params.get('id');
     if (id === null) {
@@ -34,8 +40,11 @@ export class DetailsActorsComponent implements OnInit {
 }
 
   getDetailsActor(id: string): void {
-    this.api.getDetailsPeople(id).subscribe((person) => {
-      this.details = person;
-    });
-  }
+  this.api.getDetailsPeople(id).subscribe((person) => {
+    this.details = person;
+    if (this.details.known_for && this.details.known_for.length > 0) {
+      console.log(this.details.known_for[0].title);
+    }
+  });
+}
 }

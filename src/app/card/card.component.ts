@@ -11,6 +11,8 @@ import {
 import { PopularTv } from 'src/models/Tv/PopularTv';
 import { FirebaseService } from 'src/services/firebase.service';
 import { Liste } from 'src/models/Liste';
+import { TmdbService } from 'src/services/tmdb.service';
+import { MovieDetails } from 'src/models/Movie/MovieDetails';
 
 @Component({
   selector: 'app-card',
@@ -60,26 +62,38 @@ export class CardComponent implements OnInit {
   @Input() movie?: Movie | PopularTv;
   isOpen = false;
   heartClicked = false;
+  details?: MovieDetails;
 
-  constructor(private firebase: FirebaseService) {}
+  constructor(private firebase: FirebaseService, private api: TmdbService) {}
 
 ngOnInit(): void {
   this.firebase.getListWhere(sessionStorage.getItem('email')!, 'like', this.movie!.id.toString())
     .then((doc: boolean | Liste) => {
       let liste: Liste = doc as Liste;
-      console.log(' liste id = '+liste.id);
       if(liste.id.includes(this.movie!.id)){
         this.heartClicked = true;
       }
       else{
-        console.log(false);
       }
     });
 }
 
-  toggle() {
-    this.isOpen = !this.isOpen;
+  getMovieDetails(id: string): void {
+  if (id !== null) {
+    this.api.getDetailsMovie(id).subscribe((movie) => {
+      this.details = movie;
+      if (this.details && this.details.title) {
+      }
+    });
   }
+}
+
+  toggle() {
+  this.isOpen = !this.isOpen;
+  if (this.isOpen && this.movie) {
+    this.getMovieDetails(this.movie.id.toString());
+  }
+}
 
   heartToggle() {
     this.heartClicked = !this.heartClicked;

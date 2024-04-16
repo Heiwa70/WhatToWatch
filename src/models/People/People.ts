@@ -2,6 +2,8 @@ export interface Peoples {
         adult : boolean;
         gender : number;
         id : number;
+        biography: string;
+        homepage: string;
         known_for_department : string;
         name : string;
         original_name : string;

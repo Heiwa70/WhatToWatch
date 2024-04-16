@@ -1,0 +1,31 @@
+<div (click)="openList()"
+    class="fixed bottom-4 right-20 z-10 flex justify-center content-center select-none shadow p-4 rounded-full hover:scale-110 ease-in-out duration-200 cursor-pointer rounded-fil"
+    [ngClass]="{'transform transition-all duration-500 ease-in-out': showDiv, 'scale-0 translate-y-64': showDiv}"
+    style="background-color: rgba(128, 128, 128, 0.5); outline: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+        <path
+            d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+    </svg>   
+</div>
+<div *ngIf="showDiv"
+    class="z-10 flex justify-center items-center fixed text-white bg-transparent"
+    style="bottom: 2%; right: 2%; height: auto; width: auto;">
+    <div
+        class="mt-5 h-96 w-96 text-xl text-center bg-slate-900 rounded-md shadow-md relative flex flex-col items-center p-4">
+        <button (click)="openList()"
+            class="absolute mt-1 mr-1 top-1 right-1 p-2 rounded-full bg-slate-700 hover:bg-slate-800 transition-colors duration-200 ease-in-out">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd"
+                    d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+        <h2 class="text-white text-2xl mb-4">Amis</h2>
+        <ul class="mr-3 list-none w-full overflow-y-scroll h-full custom-scrollbar">
+            <li (click)="addItemToList(doc)" *ngFor="let doc of document"
+                class="mr-4 hover:bg-slate-700 rounded transition-colors duration-200 ease-in-out py-2 text-white">
+                {{ doc }}
+            </li>
+        </ul>
+    </div>
+</div>
