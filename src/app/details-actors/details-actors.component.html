@@ -14,7 +14,7 @@
             <img [src]="'https://image.tmdb.org/t/p/w500' + details.profile_path" alt="" srcset="" />
         </div>
         
-        <div class="w-2/4 p-4">
+        <div class=" p-4">
             <h2 class="text-white text-center mt-2">{{ details.name }}</h2>
             <p
                 class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
@@ -36,13 +36,15 @@
             <br />
 
             <br>
-            <div class="flex">
+            <div class="flex flex-col flex-grow w-full h-full overflow-auto">
                 <h2 class="text-white text-center mt-2 mr-8 whitespace-nowrap">Connu pour :</h2>
                 <div *ngFor="let person of popularPeoples">
                     <div *ngIf="+idDetails === person.id">
                         <ul class="flex" *ngIf="person.known_for && person.known_for.length > 0">
                             <li *ngFor="let film of person.known_for" class="mr-4">
-                                <img [src]="'https://image.tmdb.org/t/p/w185' + film.poster_path" alt="{{ film.title }} poster">
+                                <a [routerLink]="['/Details/Movie/' + film.id]">
+                                    <img [src]="'https://image.tmdb.org/t/p/w185' + film.poster_path" alt="{{ film.title }} poster" class="!w-80 !h-80">
+                                </a>
                             </li>
                         </ul>
                     </div>
