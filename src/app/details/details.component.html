@@ -28,15 +28,18 @@
                 <i class="fas fa-star text-yellow-500 mr-2"></i> {{details.vote_average}}
             </p>
             <br />
-            <p class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+            <p
+                class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
                 <i class="fas fa-calendar-alt text-green-500 mr-2"></i> {{details.release_date}}
             </p>
             <br />
-            <p class="bg-gray-200 mb-4 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+            <p
+                class="bg-gray-200 mb-4 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
                 <i class="fas fa-clock text-red-500 mr-2"></i> {{details.runtime}} minutes
             </p>
-            
-            <div class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+
+            <div
+                class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
                 <i class="fas fa-film text-purple-500 mr-2"></i>
                 <span *ngFor="let genre of details.genres; let isLast=last">
                     {{ genre.name }}<ng-container *ngIf="!isLast">,&nbsp;</ng-container>
@@ -95,5 +98,3 @@
         </table>
     </div>
 </div>
-
-<app-footer></app-footer>

@@ -13,7 +13,7 @@
         <div class="w-3/4 p-4">
             <img [src]="'https://image.tmdb.org/t/p/w500' + details.profile_path" alt="" srcset="" />
         </div>
-        
+
         <div class=" p-4">
             <h2 class="text-white text-center mt-2">{{ details.name }}</h2>
             <p
@@ -43,7 +43,8 @@
                         <ul class="flex" *ngIf="person.known_for && person.known_for.length > 0">
                             <li *ngFor="let film of person.known_for" class="mr-4">
                                 <a [routerLink]="['/Details/Movie/' + film.id]">
-                                    <img [src]="'https://image.tmdb.org/t/p/w185' + film.poster_path" alt="{{ film.title }} poster" class="!w-80 !h-80">
+                                    <img [src]="'https://image.tmdb.org/t/p/w185' + film.poster_path"
+                                        alt="{{ film.title }} poster" class="!w-80 !h-80">
                                 </a>
                             </li>
                         </ul>
@@ -65,5 +66,3 @@
 
 
 </div>
-
-<app-footer></app-footer>
