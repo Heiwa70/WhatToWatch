@@ -33,76 +33,74 @@
                 <i class="fas fa-calendar-alt text-green-500 mr-2"></i> {{details.release_date}}
             </p>
             <br />
-<<<<<<< HEAD
-            <p class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+
+            <p
+                class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
                 <i class="fas fa-clock text-red-500 mr-2"></i> {{details.runtime}} minutes
             </p>
             <br />
-            <div class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
-=======
-            <p
-                class="bg-gray-200 mb-4 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
-                <i class="fas fa-clock text-red-500 mr-2"></i> {{details.runtime}} minutes
-            </p>
-
             <div
                 class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
->>>>>>> dff55cd0e0a9d6ecad42a2131a49f2bbc4c05769
-                <i class="fas fa-film text-purple-500 mr-2"></i>
-                <span *ngFor="let genre of details.genres; let isLast=last">
-                    {{ genre.name }}<ng-container *ngIf="!isLast">,&nbsp;</ng-container>
-                </span>
+
+
+                <div
+                    class="bg-gray-200 cursor-pointer text-gray-800 font-semibold p-2 rounded inline-flex items-center hover:scale-110 duration-100 ease-in-out">
+
+                    <i class="fas fa-film text-purple-500 mr-2"></i>
+                    <span *ngFor="let genre of details.genres; let isLast=last">
+                        {{ genre.name }}<ng-container *ngIf="!isLast">,&nbsp;</ng-container>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="mt-5 mb-5 w-full flex justify-center bg-slate-900 rounded">
-    <br />
-    <div class="info-container rounded">
-        <table class="info-table rounded mb-5">
-            <tr>
-                <th class="info-title">Casting :</th>
-                <td>
-                    <ul class="cast-list">
-                        <li class="text-white" *ngFor="let actor of credits.cast | slice:0:15">
-                            {{ actor.name }} - {{ actor.known_for_department }}
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th class="info-title">Budget:</th>
-                <td class="text-white info-content">{{details.budget}} $</td>
-            </tr>
-            <tr>
-                <th class="info-title">Revenue:</th>
-                <td class="text-white info-content">{{details.revenue}} $</td>
-            </tr>
-            <tr>
-                <th class="info-title">Status:</th>
-                <td class="text-white info-content">{{details.status}}</td>
-            </tr>
-            <tr>
-                <th class="info-title">Popularité:</th>
-                <td class="text-white info-content">{{details.popularity}}</td>
-            </tr>
-            <tr>
-                <th class="info-title">Production:</th>
-                <td class="text-white info-content">{{details.production_companies[0].name}}</td>
-            </tr>
-            <tr>
-                <th class="info-title">Pays:</th>
-                <td class="text-white info-content">{{details.production_countries[0].name}}</td>
-            </tr>
-            <tr>
-                <th class="info-title">Note:</th>
-                <td class="text-white info-content">{{details.vote_average}}/10</td>
-            </tr>
-            <tr>
-                <th class="info-title">Nombre de votes:</th>
-                <td class="text-white info-content">{{details.vote_count}}</td>
-            </tr>
-        </table>
+    <div class="mt-5 mb-5 w-full flex justify-center bg-slate-900 rounded">
+        <br />
+        <div class="info-container rounded">
+            <table class="info-table rounded mb-5">
+                <tr>
+                    <th class="info-title">Casting :</th>
+                    <td>
+                        <ul class="cast-list">
+                            <li class="text-white" *ngFor="let actor of credits.cast | slice:0:15">
+                                {{ actor.name }} - {{ actor.known_for_department }}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="info-title">Budget:</th>
+                    <td class="text-white info-content">{{details.budget}} $</td>
+                </tr>
+                <tr>
+                    <th class="info-title">Revenue:</th>
+                    <td class="text-white info-content">{{details.revenue}} $</td>
+                </tr>
+                <tr>
+                    <th class="info-title">Status:</th>
+                    <td class="text-white info-content">{{details.status}}</td>
+                </tr>
+                <tr>
+                    <th class="info-title">Popularité:</th>
+                    <td class="text-white info-content">{{details.popularity}}</td>
+                </tr>
+                <tr>
+                    <th class="info-title">Production:</th>
+                    <td class="text-white info-content">{{details.production_companies[0].name}}</td>
+                </tr>
+                <tr>
+                    <th class="info-title">Pays:</th>
+                    <td class="text-white info-content">{{details.production_countries[0].name}}</td>
+                </tr>
+                <tr>
+                    <th class="info-title">Note:</th>
+                    <td class="text-white info-content">{{details.vote_average}}/10</td>
+                </tr>
+                <tr>
+                    <th class="info-title">Nombre de votes:</th>
+                    <td class="text-white info-content">{{details.vote_count}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
